@@ -75,6 +75,17 @@ Relevant skills: <skills to load>
 Uncertainty: <what could change this answer, or "none">
 ```
 
+The skills that follow from the type:
+
+| Type | Skills |
+|---|---|
+| Web / frontend | `elite-web-experience` |
+| Backend / API in Java or Kotlin | `java-clean-architecture`, `testing` |
+| Any other backend / API | `testing` |
+| Fullstack or monorepo | the skills of the half or package the change touches |
+| Any type, reviewing a meaningful change | `code-review` |
+| Any type, committing or publishing | `release-project` |
+
 ## Persist the result
 
 Once classified, record the project type, release path, and validation commands in the repository's `CLAUDE.md` (see `start-project`). Re-deriving this on every session wastes effort and risks landing on a different answer than last time.

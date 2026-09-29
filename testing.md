@@ -24,6 +24,10 @@ Test coverage should follow risk, not habit. Before writing anything, ask what w
 
 Tests have a cost: they are read, maintained, and debugged for as long as the code lives. A test that duplicates another one, or that asserts an implementation detail, is a permanent tax with no return.
 
+## Java projects
+
+For Java and Spring Boot projects, the test model defined in the `Testing` section of `java-clean-architecture` is mandatory and takes precedence over the generic guidance in this skill wherever they differ: full `@SpringBootTest` context against a real PostgreSQL seeded by a test-only Flyway migration, `AbstractTest` / `AbstractControllerTest` base classes, one `<metodo>Test` per endpoint, service method and repository method, and no mocks, Testcontainers or slice tests. Load that skill before writing Java tests.
+
 ## Before writing tests
 
 1. **Find the runner and the commands.** Read `package.json` scripts, `pom.xml`, `build.gradle`, `Makefile`, and CI configuration. Use what the project uses.
@@ -33,15 +37,15 @@ Tests have a cost: they are read, maintained, and debugged for as long as the co
 
 Common commands, to be verified against the project rather than assumed:
 
-```bash
-mvn test                              # Maven unit
-mvn verify                            # Maven, including integration
-./gradlew test                        # Gradle
-npm test / npm run test:unit          # Node
-npx vitest run / npx jest             # Vitest / Jest directly
-pytest -q                             # Python
-go test ./...                         # Go
-```
+| Stack | Command |
+|---|---|
+| Maven, unit | `mvn test` |
+| Maven, including integration | `mvn verify` |
+| Gradle | `./gradlew test` |
+| Node | `npm test` / `npm run test:unit` |
+| Vitest / Jest directly | `npx vitest run` / `npx jest` |
+| Python | `pytest -q` |
+| Go | `go test ./...` |
 
 ## Test layers
 
@@ -54,7 +58,8 @@ go test ./...                         # Go
 ## Writing good tests
 
 - **Name the behaviour, not the method.** `shouldRejectOrderWhenCustomerHasNoCredit` tells you what broke; `testCreateOrder2` does not.
-- **Structure as arrange / act / assert.** The separation makes the intent readable at a glance.
+- **Structure as arrange / act / assert, separated by blank lines.** The separation makes the intent readable at a glance. Mark it with blank lines, never with `// given`, `// when`, `// then` comments.
+- **Write no comments in tests.** The test name says what is verified and the variable names say what each value is; an explanation that seems necessary means a name needs to improve.
 - **Assert the outcome, not the mechanics.** Verifying that a method was called once couples the test to the implementation; verifying the resulting state survives refactoring.
 - **Keep tests deterministic.** No real clock, no random values, no network, no dependence on execution order, no shared mutable state between tests. Inject time and randomness.
 - **One reason to fail per test.** When a test with six assertions fails, you learn less than you should.

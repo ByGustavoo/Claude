@@ -15,15 +15,17 @@ Review is judgement, not a checklist pass. The value is in noticing what the dif
 
 ### 1. Establish what changed and why
 
-```bash
-git status
-git diff                    # unstaged
-git diff --staged           # staged
-git diff main...HEAD        # whole branch
-git log --oneline -10
-```
+| Command | Shows |
+|---|---|
+| `git status` | Staged, modified and untracked files |
+| `git diff` | Unstaged changes |
+| `git diff --staged` | Staged changes |
+| `git diff <default>...HEAD` | The whole branch against the default branch |
+| `git log --oneline -10` | Recent history |
 
-Before judging the code, understand the intent. A change that is technically fine but solves the wrong problem is the most expensive kind of defect, and it is invisible if you only read the diff line by line.
+Find the default branch instead of assuming `main`: `git symbolic-ref --short refs/remotes/origin/HEAD` names it, and `git branch -a` shows the candidates when that fails. A review against the wrong base either misses changes or reports someone else's.
+
+Before judging the code, understand the intent. Take it from the user's request, the PR description, the commit messages, and any issue or requirements document they point to (`REQUISITOS.md`, `API_CONTRACT.md`). A change that is technically fine but solves the wrong problem is the most expensive kind of defect, and it is invisible if you only read the diff line by line.
 
 ### 2. Read beyond the diff
 
@@ -55,6 +57,10 @@ Work down this list. A finding high on the list outranks any number of findings 
 ### 4. Verify claims instead of trusting them
 
 If the change says it fixes something, check that it does. If it says tests pass, run them or say you did not. A review that repeats the author's claims back adds nothing.
+
+### 5. Hold your own work to the same bar
+
+When the review is a self-check of code you just wrote, the author's blind spots are yours. Re-read the diff as if someone else had written it, and look hardest at what you were least sure of while writing: the edge case you decided not to handle, the caller you did not open, the test you did not run. Approving your own change because it matches what you intended proves only that it matches what you intended.
 
 ## Findings
 
@@ -105,6 +111,7 @@ Before a commit, push, or PR, additionally check for:
 
 - Secrets, tokens, keys, connection strings, `.env` files
 - Debug leftovers: `console.log`, `System.out.println`, `printStackTrace`, commented-out code, `TODO` markers left as reminders
+- Comments of any kind added to source, build or configuration files — line and block comments, JSDoc and Javadoc, JSX `{/* */}`, CSS and HTML comments, `--` in SQL, `#` in YAML, `.properties` and `.gitignore`, `<!-- -->` in XML, section banners, and group labels such as `// Spring Boot` over dependency lines. Projects here carry no comments unless the user asked for one; the only exceptions are `.env` files, directives a tool reads, such as `/// <reference>` or `@SuppressWarnings`, and tool-generated files such as the Gradle wrapper scripts
 - Temporary or generated files that should not be tracked
 - Unrelated modifications swept into the change
 - Risky changes with no test covering them
@@ -113,6 +120,8 @@ Before a commit, push, or PR, additionally check for:
 ## Standard
 
 Prefer evidence from this repository over generic best practices. "This project uses MapStruct everywhere else" is a real finding; "you should consider using a mapper" usually is not.
+
+The user's own conventions count as project evidence. In a Java backend, the review checklist and the test model of `java-clean-architecture` apply; in a web interface, the closing checklist of `elite-web-experience` applies. A change that breaks one of those rules is a finding with the same standing as a break from the repository's own code.
 
 Do not manufacture issues to make a review look thorough. Inventing findings costs the reader more than it costs you, and it makes the real findings harder to trust.
 

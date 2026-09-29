@@ -19,6 +19,8 @@ Onboarding is not a licence to change code. In this skill:
 - Do not refactor, reformat, upgrade dependencies, or "clean up" anything you happen to notice.
 - Collect what you noticed and list it at the end as suggestions.
 
+The one exception is step 6: comments and group labels left by templates are removed during onboarding, because the projects carry none and leaving them would make every later change inherit them. That removal is the only edit outside the documentation, and the completion report lists each file it touched.
+
 If the user asked for a specific task and you are inspecting only to do that task well, keep the inspection proportional — read what you need, skip the full audit, and do not write documentation nobody asked for.
 
 ## Workflow
@@ -47,18 +49,7 @@ Use `project-classifier` to determine the category and release path. Do not dupl
 
 ### 3. Select skills
 
-Load only what the work requires:
-
-| Project | Load |
-|---|---|
-| Web / frontend | `elite-web-experience` |
-| Java / Spring backend | `java-clean-architecture`, `testing` |
-| Any backend or API | `testing` |
-| Fullstack | the skills for the half being touched |
-| Any meaningful change under review | `code-review` |
-| Committing or publishing | `release-project` |
-
-Loading unrelated skills fills context with instructions that do not apply and dilutes the ones that do.
+Load only what the work requires, using the type-to-skill table in `project-classifier`. Loading unrelated skills fills context with instructions that do not apply and dilutes the ones that do.
 
 ### 4. CLAUDE.md
 
@@ -109,14 +100,22 @@ The README is for humans, including future contributors. Update it only when a r
 
 Never copy project-specific facts from another repository into this one. Reuse the *shape* of the documentation, never its content.
 
-### 6. Validate
+**Tool lists — one entry per tool, shortest to longest.** In the tools section ("🚀 Ferramentas Utilizadas" and equivalents), every tool gets its own bullet with its own emoji. Never merge two into one line with `+`: `* 🐘 PostgreSQL + Flyway` and `* 📊 Log4j2 + JaCoCo` are wrong — each is two bullets. Order the bullets by visual line length, shortest first, regardless of importance or category.
+
+### 6. Conventions to apply while onboarding
+
+**Dependency manifests** follow the same grouping as the README tool list, and carry no comments. Each tool's declarations form their own group — PostgreSQL and Flyway are two groups, not one —, groups are separated by a blank line, and inside each group the declarations run from the shortest line to the longest.
+
+**Never write comments in the repository's files** — source, configuration, manifests, migrations, scripts, `.gitignore`, or `.gitattributes`. No Javadoc or JSDoc either. A label that only names a group counts as a comment: the `// Spring Boot` lines a template puts over dependency blocks and the `### IntelliJ IDEA ###` headers Spring Initializr puts in `.gitignore` are removed during onboarding, leaving the blank line between groups. The exceptions are `.env` and `.env.example`, where a comment explains each variable to whoever sets up the environment, directives a tool reads (`@SuppressWarnings`, `/// <reference>`), and tool-generated files such as the Gradle wrapper scripts, which stay as generated. Otherwise a comment is written only when the user asks for one. When a convention needs explaining, the explanation belongs in `CLAUDE.md` or `README.md`, not in the file it governs.
+
+### 7. Validate
 
 Before declaring initialization complete:
 
 - Every path mentioned in the documentation exists
 - Every command mentioned runs, or is marked as unverified
 - No documented capability is unsupported by the code
-- No files outside `CLAUDE.md` and `README.md` were modified
+- No files outside `CLAUDE.md` and `README.md` were modified, apart from the comment and group-label removal of step 6
 
 ## Completion
 
@@ -125,6 +124,7 @@ Report, briefly:
 - Project type and the evidence for it
 - Which skills apply
 - What you created or updated, and what you deliberately left alone
+- Which files had template comments or group labels removed, if any
 - Anything you noticed but did not act on, offered as next steps
 
 If you inspected but wrote nothing because nothing needed changing, say that. A repository already in good shape is a legitimate outcome.

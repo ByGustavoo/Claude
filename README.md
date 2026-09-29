@@ -16,8 +16,6 @@
 
 * 🧩 7 Skills especializadas em Markdown
 
-* 🌐 Idioma de trabalho: Português (código e termos técnicos preservados)
-
 
 <br>
 
@@ -46,19 +44,11 @@ O `CLAUDE.md` define o comportamento padrão para todos os projetos. Um `CLAUDE.
 
 <br>
 
-* 🗣️ **Comunicação**: respostas em português, direto ao ponto, relatando o que foi de fato feito e validado.
+* 🎨 **Interface web sempre passa pela `elite-web-experience`**: a skill é invocada antes de criar ou alterar qualquer interface, de uma página inteira a trocar a cor de um botão.
 
-* 🔎 **Inspecionar antes de assumir**: ler o repositório, seus manifests e o histórico recente antes de formar qualquer opinião.
+* 🔎 **O que decide é o resultado, não a descrição do pedido**: corrigir um bug de layout, ajustar um gráfico ou arrumar um alinhamento também contam, porque mudam o que a pessoa vê na tela.
 
-* 🧭 **Preservar convenções existentes**, mudando apenas com motivo concreto e explícito.
-
-* 🚫 **Nunca inventar fatos do projeto**: comandos, endpoints, dependências e resultados de teste só entram se forem verificados.
-
-* 🧪 **Validar antes de concluir**: "deveria funcionar" não é resultado.
-
-* 🔐 **Nunca expor segredos**, credenciais, tokens ou chaves privadas.
-
-* ⛔ **Perguntar antes** de qualquer operação irreversível ou fora de escopo — force push, reset, exclusão de arquivos, merge de PR, mudança de schema ou de API pública.
+* ⚙️ **Fora da interface, a skill fica de fora**: configuração de build, rotas de API, tipos, mocks de dados, scripts, testes e git.
 
 
 <br>
@@ -102,7 +92,7 @@ $ for skill in code-review elite-web-experience java-clean-architecture \
 
 ```bash
 .
-├── CLAUDE.md                     Instruções globais: comunicação, regras e definição de pronto
+├── CLAUDE.md                     Instruções globais: quando acionar a elite-web-experience
 ├── code-review.md                Revisão de mudanças e caça a regressões
 ├── elite-web-experience.md       Web Design, UX/UI, front-end e acessibilidade
 ├── java-clean-architecture.md    Backend Java e Spring com Clean Architecture
