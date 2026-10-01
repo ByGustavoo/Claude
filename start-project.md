@@ -1,6 +1,6 @@
 ---
 name: start-project
-description: Onboard into a repository - inspect its structure, classify it, identify which skills apply, and create or update its CLAUDE.md and README.md from verified facts. Use when opening a repository for the first time, when the user says things like "inicializa esse projeto", "faz o setup", "audita esse repo", "cria o CLAUDE.md", "configura as instrucoes do projeto", or "documenta isso"; and whenever you are about to work in a repository you have not yet inspected in this session. Trigger it even when the request that follows is small, because the cost of writing code against assumed conventions is far higher than the cost of a short inspection first.
+description: Onboard into a repository - inspect its structure, classify it, identify which skills apply, and create or update its CLAUDE.md and README.md from verified facts. Use when opening a repository for the first time, when the user says things like "inicializa esse projeto", "faz o setup", "audita esse repo", "cria o CLAUDE.md", "configura as instrucoes do projeto", or "documenta isso"; whenever you are about to work in a repository you have not yet inspected in this session; and whenever you create, rewrite or improve any README.md, including the README of a project you just created in this session, because it defines the user's README pattern. Trigger it even when the request that follows is small, because the cost of writing code against assumed conventions is far higher than the cost of a short inspection first.
 ---
 
 # Start Project
@@ -96,11 +96,104 @@ Every command listed must be one you found in the project, not one you assume wo
 
 The README is for humans, including future contributors. Update it only when a real change made it inaccurate or materially incomplete — not for style.
 
-**If it does not exist**, follow the user's established documentation pattern: when a GitHub integration is available, look at their other repositories with a similar stack, identify the structure and tone they consistently use, and follow it. Otherwise use a standard structure: what it is, requirements, install, run, test, structure, configuration.
+**If it does not exist**, or when the user asks to create or improve one, write it in the user's README pattern below. This applies to every README, not only during onboarding: a README written as part of creating a new project follows the same pattern, and a generic structure (a `# Title` heading, plain section names, `-` lists) is never acceptable.
+
+Before writing, open one or two of the user's most recent READMEs of the same project type to match their current form: the sibling repositories next to the working directory, or `gh repo view ByGustavoo/<repo>` when they are not local. PrismaAPI and OrbitAPI are the reference for backends, PrismaWeb and OrbitWeb for frontends, Sentinela and Claude for tools and other projects.
 
 Never copy project-specific facts from another repository into this one. Reuse the *shape* of the documentation, never its content.
 
-**Tool lists — one entry per tool, shortest to longest.** In the tools section ("🚀 Ferramentas Utilizadas" and equivalents), every tool gets its own bullet with its own emoji. Never merge two into one line with `+`: `* 🐘 PostgreSQL + Flyway` and `* 📊 Log4j2 + JaCoCo` are wrong — each is two bullets. Order the bullets by visual line length, shortest first, regardless of importance or category.
+#### The user's README pattern
+
+The skeleton every README follows:
+
+````markdown
+<div align="center"> <br>
+  <img align="center" alt="<projeto>-<tecnologia>" height="150" width="150" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/<tecnologia>/<tecnologia>-original.svg" />
+</div>
+
+<br>
+
+<div align="center">
+  <Uma a três frases em pt-BR: o que o projeto é, para quem serve e o que concentra. Cita o projeto irmão com link quando houver.>
+</div>
+
+<br> <br>
+
+## 🚀 Ferramentas Utilizadas
+
+* ☕️ Java 25
+
+* 🟢 Spring Boot 4.1.1
+
+<br>
+
+## ⚙️ Pré-requisitos
+
+* JDK 25 instalada
+
+<br>
+
+## ▶️ Como Executar
+
+```bash
+# Ambiente de desenvolvimento (porta 9017)
+./gradlew bootRun --args="--spring.profiles.active=dev"
+```
+
+<br>
+
+## 📁 Estrutura
+
+```
+src/main/java/br/com/<projeto>
+├── <Projeto>Application.java   # Classe de inicialização
+├── config                      # Configurações e beans
+└── service                     # Regras de negócio
+```
+
+<br>
+
+## 🖥️ Desenvolvedor
+
+### 🔵 LinkedIn: [Gustavo Correa](https://www.linkedin.com/in/gustavo-chauar-correa-946168269/)
+````
+
+The rules behind it:
+
+- **No `#` title.** The README opens with the centered logo: the devicon of the main technology (`spring` for Spring Boot APIs, `react` for React frontends, `java` for plain Java, `python` for Python), 150×150, with `alt` as `<projeto>-<tecnologia>` in lowercase. Check that the icon URL exists before using it.
+- **The description lives in the centered `<div>`**, never under a heading, followed by `<br> <br>`.
+- **Every section is `## <emoji> <Título em Title Case>`** (`Como Executar`, `Variáveis de Ambiente`, `Testes e Build`), and sections are separated by a `<br>` line with one blank line on each side.
+- **Reuse the established titles and emojis** when the section applies, in this order, and skip the ones that do not:
+
+| Section | Used for |
+|---|---|
+| `## 🚀 Ferramentas Utilizadas` | Always first: stack and tools |
+| `## 🎯 Objetivo` | Why the project exists, when the description is not enough |
+| `## 📌 Status do Projeto` | What is done, integrated or pending |
+| `## ✨ Funcionalidades` | Features, grouped with `🔹 **Grupo**` lines followed by bullets |
+| `## 🔎 Como Funciona` | The mechanism, in plain language |
+| `## ⚙️ Pré-requisitos` | What must be installed or reachable |
+| `## 📦 Instalação` | Installing dependencies |
+| `## 🔐 Variáveis de Ambiente` | Table `\| Variável \| Descrição \|` |
+| `## ▶️ Como Executar` | Running, per profile or per shell |
+| `## 📜 Scripts Disponíveis` | Package scripts (frontends) |
+| `## 🧪 Testes e Build` | Test and build commands (`## 🧪 Testes` when there is no build) |
+| `## 🐳 Docker` | Compose files and the image |
+| `## 🤖 Integração Contínua` | Table `\| Workflow \| Gatilho \| O que faz \|` |
+| `## 🔌 API` / `## 🔌 Integração com a API` | The contract, or how the frontend reaches the backend |
+| `## 📁 Estrutura` / `## 📂 Estrutura do Projeto` | The source tree |
+| `## ⚠️ Limitações` | Known limits, stated honestly |
+| `## 🗺️ Próximas Etapas` | What comes next |
+| `## 🖥️ Desenvolvedor` | Always last, exactly as in the skeleton |
+
+  A project-specific section (a catalogue of patterns, a data layer, a theme system) gets its own fitting emoji in the same `## <emoji> <Título>` form, placed where it reads naturally before the structure.
+- **Tool lists — one entry per tool, shortest to longest.** In "🚀 Ferramentas Utilizadas", every tool gets its own bullet with its own emoji and its version when it has one, with a blank line between bullets. Never merge two into one line with `+`: `* 🐘 PostgreSQL + Flyway` and `* 📊 Log4j2 + JaCoCo` are wrong — each is two bullets. Order the bullets by visual line length, shortest first, regardless of importance or category. The bullets of "⚙️ Pré-requisitos" are also separated by blank lines.
+- **Lists use `*`, never `-`.** Explanatory lists lead with bold: `* **Termo:** explicação`.
+- **Commands go in fenced blocks, each command preceded by a `# ` line in pt-BR saying what it does** (`# Sobe um PostgreSQL local na porta 5432`), with a blank line between commands. When there are independent steps or alternative shells, put a `🔹 <Rótulo>` line right above each block. These `#` lines are documentation inside the README and are expected there; the no-comments rule covers the repository's files, not examples in Markdown.
+- **The structure is a tree** (`├──`, `└──`, `│`) starting at the source root package, with each entry followed by a `# Descrição` aligned in one column, naming what the folder holds.
+- **Tables for anything tabular**: variables, workflows, endpoints, catalogues. A catalogue table may start each row with an emoji and the bold name (`🧱 **Builder**`).
+- **The footer never changes**: `## 🖥️ Desenvolvedor` followed by `### 🔵 LinkedIn: [Gustavo Correa](https://www.linkedin.com/in/gustavo-chauar-correa-946168269/)`, and nothing after it.
+- **Prose is pt-BR and factual.** Every class, path, command, port and count must exist in the project and be checked before publishing.
 
 ### 6. Conventions to apply while onboarding
 
