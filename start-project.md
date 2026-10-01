@@ -19,7 +19,7 @@ Onboarding is not a licence to change code. In this skill:
 - Do not refactor, reformat, upgrade dependencies, or "clean up" anything you happen to notice.
 - Collect what you noticed and list it at the end as suggestions.
 
-The one exception is step 6: comments and group labels left by templates are removed during onboarding, because the projects carry none and leaving them would make every later change inherit them. That removal is the only edit outside the documentation, and the completion report lists each file it touched.
+The one exception is step 6: comments and group labels left by templates are removed during onboarding, and the `dependencies` block of `build.gradle.kts` is brought to the labeled-group shape, because leaving either would make every later change inherit it. Those are the only edits outside the documentation, and the completion report lists each file they touched.
 
 If the user asked for a specific task and you are inspecting only to do that task well, keep the inspection proportional — read what you need, skip the full audit, and do not write documentation nobody asked for.
 
@@ -197,9 +197,9 @@ The rules behind it:
 
 ### 6. Conventions to apply while onboarding
 
-**Dependency manifests** follow the same grouping as the README tool list, and carry no comments. Each tool's declarations form their own group — PostgreSQL and Flyway are two groups, not one —, groups are separated by a blank line, and inside each group the declarations run from the shortest line to the longest.
+**Dependency manifests** are grouped with a `// Nome` label over each group, in the fixed order and shape defined in `java-clean-architecture` (Code style): `// Spring Boot`, the integration groups the project has (`// Redis`, `// RabbitMQ`, `// gRPC - Protobuf`), `// MapStruct`, `// Banco de dados` (driver and `flyway-database-*` together), `// Lombok`, `// Logging`, `// Swagger` and `// Testes`. Groups are separated by a blank line, the block opens and closes with a blank line inside its braces, and inside each group the declarations run from the shortest line to the longest. These labels are the one comment the manifests carry.
 
-**Never write comments in the repository's files** — source, configuration, manifests, migrations, scripts, `.gitignore`, or `.gitattributes`. No Javadoc or JSDoc either. A label that only names a group counts as a comment: the `// Spring Boot` lines a template puts over dependency blocks and the `### IntelliJ IDEA ###` headers Spring Initializr puts in `.gitignore` are removed during onboarding, leaving the blank line between groups. The exceptions are `.env` and `.env.example`, where a comment explains each variable to whoever sets up the environment, directives a tool reads (`@SuppressWarnings`, `/// <reference>`), and tool-generated files such as the Gradle wrapper scripts, which stay as generated. Otherwise a comment is written only when the user asks for one. When a convention needs explaining, the explanation belongs in `CLAUDE.md` or `README.md`, not in the file it governs.
+**Never write comments in the repository's files** — source, configuration, manifests, migrations, scripts, `.gitignore`, or `.gitattributes`. No Javadoc or JSDoc either. A label that only names a group counts as a comment, such as the `### IntelliJ IDEA ###` headers Spring Initializr puts in `.gitignore`, which are removed during onboarding, leaving the blank line between groups. The exceptions are the dependency group labels of `build.gradle.kts` described above, `.env` and `.env.example`, where a comment explains each variable to whoever sets up the environment, directives a tool reads (`@SuppressWarnings`, `/// <reference>`), and tool-generated files such as the Gradle wrapper scripts, which stay as generated. Otherwise a comment is written only when the user asks for one. When a convention needs explaining, the explanation belongs in `CLAUDE.md` or `README.md`, not in the file it governs.
 
 ### 7. Validate
 
@@ -208,7 +208,7 @@ Before declaring initialization complete:
 - Every path mentioned in the documentation exists
 - Every command mentioned runs, or is marked as unverified
 - No documented capability is unsupported by the code
-- No files outside `CLAUDE.md` and `README.md` were modified, apart from the comment and group-label removal of step 6
+- No files outside `CLAUDE.md` and `README.md` were modified, apart from the comment removal and dependency regrouping of step 6
 
 ## Completion
 
@@ -217,7 +217,7 @@ Report, briefly:
 - Project type and the evidence for it
 - Which skills apply
 - What you created or updated, and what you deliberately left alone
-- Which files had template comments or group labels removed, if any
+- Which files had template comments removed or their dependency block regrouped, if any
 - Anything you noticed but did not act on, offered as next steps
 
 If you inspected but wrote nothing because nothing needed changing, say that. A repository already in good shape is a legitimate outcome.

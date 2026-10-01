@@ -111,7 +111,7 @@ Before a commit, push, or PR, additionally check for:
 
 - Secrets, tokens, keys, connection strings, `.env` files
 - Debug leftovers: `console.log`, `System.out.println`, `printStackTrace`, commented-out code, `TODO` markers left as reminders
-- Comments of any kind added to source, build or configuration files — line and block comments, JSDoc and Javadoc, JSX `{/* */}`, CSS and HTML comments, `--` in SQL, `#` in YAML, `.properties` and `.gitignore`, `<!-- -->` in XML, section banners, and group labels such as `// Spring Boot` over dependency lines. Projects here carry no comments unless the user asked for one; the only exceptions are `.env` files, directives a tool reads, such as `/// <reference>` or `@SuppressWarnings`, and tool-generated files such as the Gradle wrapper scripts
+- Comments of any kind added to source, build or configuration files — line and block comments, JSDoc and Javadoc, JSX `{/* */}`, CSS and HTML comments, `--` in SQL, `#` in YAML, `.properties` and `.gitignore`, `<!-- -->` in XML, section banners, and group labels such as `### IntelliJ IDEA ###` in `.gitignore`. Projects here carry no comments unless the user asked for one; the only exceptions are the required `// Nome` labels over each dependency group in `build.gradle.kts`, `.env` files, directives a tool reads, such as `/// <reference>` or `@SuppressWarnings`, and tool-generated files such as the Gradle wrapper scripts
 - Temporary or generated files that should not be tracked
 - Unrelated modifications swept into the change
 - Risky changes with no test covering them

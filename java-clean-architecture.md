@@ -198,9 +198,45 @@ These are not suggestions to weigh against readability arguments. Write the code
 
 The rule covers every file in the project, not only `.java`, and every comment syntax: `//`, `/* */` and `/** */` in Java, `build.gradle.kts` and `settings.gradle.kts`; `--` and `/* */` in Flyway migrations; `#` in `application.yml`, `.properties`, `Dockerfile`, `docker-compose.yml`, `.gitignore` and `.gitattributes`; `<!-- -->` in `pom.xml`, `log4j2.xml` and any other XML.
 
-A label that only names a group is a comment too. `// Spring Boot` above a block of dependencies and `### IntelliJ IDEA ###` above a block of `.gitignore` entries both go; the blank line between groups is what separates them. Templates such as Spring Initializr ship these labels, so delete them as soon as the file enters the project instead of carrying them forward. When touching a file that still has comments, remove them all and add none — the projects carry no comments at all.
+The `dependencies` block of `build.gradle.kts` is the one place that **must** carry comments: every group of dependencies has a `// Nome` label on the line above it. The groups and their order are fixed — `// Spring Boot` (devtools and the `spring-boot-starter-*` that have no group of their own, `starter-flyway` included), then the integration groups the project has (`// Redis` for cache and data-redis, `// RabbitMQ` for amqp, `// gRPC - Protobuf` for `io.grpc` and protobuf), `// MapStruct` (with `lombok-mapstruct-binding`), `// Banco de dados` (the JDBC driver and `flyway-database-*`), `// Lombok`, `// Logging` (log4j2 starter, slf4j and the log4j bridges), `// Swagger` (springdoc) and `// Testes` (every `test*` configuration). Groups are separated by one blank line, the block opens with a blank line after `dependencies {` and closes with a blank line before its `}` — the one place where a blank line precedes a closing brace — and inside each group the lines run from the shortest to the longest. When a dependency is added, put it in its group at the position its length dictates; when a project has an unlabeled or differently named block (`// Tests`, `// PostgreSQL`), bring it to this shape. Only add or remove dependencies when the task asks for it.
 
-There are three exceptions. `.env` and `.env.example` keep their comments, because there they explain each variable to whoever sets up the environment. An annotation or directive the compiler or a tool reads, such as `@SuppressWarnings` or a `// NOSONAR` pragma the project already uses, is not a comment. And files a tool generates and overwrites — the Gradle wrapper scripts `gradlew` and `gradlew.bat`, or `mvnw` — are left as generated, license header included, since the next `gradle wrapper` rewrites them anyway. Add a real comment only when the user explicitly asks for one, and then only where they asked.
+```kotlin
+dependencies {
+
+    // Spring Boot
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
+    implementation("org.springframework.boot:spring-boot-starter-flyway")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // MapStruct
+    implementation("org.mapstruct:mapstruct:1.6.3")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
+    // Banco de dados
+    runtimeOnly("org.postgresql:postgresql")
+    implementation("org.flywaydb:flyway-database-postgresql")
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    // Logging
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
+
+    // Testes
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+
+}
+```
+
+Any other label that only names a group is a comment and goes, such as `### IntelliJ IDEA ###` above a block of `.gitignore` entries; the blank line between groups is what separates them. Templates such as Spring Initializr ship these labels, so delete them as soon as the file enters the project instead of carrying them forward. When touching a file that still has comments, remove them all and add none — apart from the dependency labels above, the projects carry no comments at all.
+
+There are four exceptions. The dependency labels of `build.gradle.kts`, described above. `.env` and `.env.example` keep their comments, because there they explain each variable to whoever sets up the environment. An annotation or directive the compiler or a tool reads, such as `@SuppressWarnings` or a `// NOSONAR` pragma the project already uses, is not a comment. And files a tool generates and overwrites — the Gradle wrapper scripts `gradlew` and `gradlew.bat`, or `mvnw` — are left as generated, license header included, since the next `gradle wrapper` rewrites them anyway. Add a real comment only when the user explicitly asks for one, and then only where they asked.
 
 **Order every field list from the shortest line to the longest.** This applies to injected dependencies (`private final`) and to constant blocks (`private static final`) alike — the measure is the visual length of the whole line, not the type name and not alphabetical order:
 
@@ -516,7 +552,8 @@ Run `./gradlew test` with the project's PostgreSQL running (usually its `docker-
 - [ ] Errors go through the `exceptions` package: one `RuntimeException` per failure, one `ErrorResponseDTO` shape, one `GlobalExceptionHandler` method per type
 - [ ] No record or DTO was declared in a service, controller, or repository package
 - [ ] Field lists are ordered from the shortest line to the longest
-- [ ] No comments and no Javadoc in any file touched — Java, Gradle, SQL, YAML, XML, `.gitignore` — including group labels such as `// Spring Boot`
+- [ ] No comments and no Javadoc in any file touched — Java, Gradle, SQL, YAML, XML, `.gitignore` — except the `// Nome` label over each dependency group of `build.gradle.kts`, which is required
+- [ ] The `dependencies` block follows the fixed groups and order (Spring Boot, integrations, MapStruct, Banco de dados, Lombok, Logging, Swagger, Testes), each group shortest line first, with a blank line after `{` and before `}`
 - [ ] No blank line before any closing brace, and the file ends at its final `}`
 - [ ] No `private static final` literal (message, string, number) is referenced in only one place; built objects such as `Sort.by(...)` may stay constants
 - [ ] Every error message ends with `!`
