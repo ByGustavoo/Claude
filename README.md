@@ -14,7 +14,7 @@
 
 * 🧠 1 arquivo de instruções globais (`CLAUDE.md`)
 
-* 🧩 7 Skills especializadas em Markdown
+* 🧩 8 Skills especializadas em Markdown
 
 
 <br>
@@ -31,6 +31,7 @@
 | 🎨 `elite-web-experience` | Qualquer trabalho de interface web — layout, componentes, CSS, tipografia, acessibilidade, responsividade e animações |
 | ☕ `java-clean-architecture` | Backend Java / Kotlin / Spring Boot — fronteiras de Clean Architecture, portas e adaptadores, JPA, transações e semântica REST |
 | ✅ `testing` | Definir e executar a estratégia de testes proporcional ao risco da mudança, antes de declarar qualquer trabalho concluído |
+| 🎬 `project-video` | Pedido de vídeo de apresentação, demo ou motion graphics — analisa o projeto, destaca as principais ferramentas e renderiza em 4K com Remotion, com GIF para o README |
 | 🕵️ `code-review` | Revisar um diff em busca de regressões, falhas de segurança, perda de dados e regras de negócio quebradas |
 | 🚀 `release-project` | Preparar e publicar as mudanças — inspeção do diff, numeração sequencial do commit e escolha entre push direto ou Pull Request |
 
@@ -76,10 +77,13 @@ $ cp Claude/CLAUDE.md ~/.claude/CLAUDE.md
 ```bash
 # Cria a pasta de cada skill e copia o arquivo como SKILL.md
 $ for skill in code-review elite-web-experience java-clean-architecture \
-               project-classifier release-project start-project testing; do
+               project-classifier project-video release-project start-project testing; do
     mkdir -p ~/.claude/skills/$skill
     cp Claude/$skill.md ~/.claude/skills/$skill/SKILL.md
   done
+
+# Copia os arquivos-modelo que a project-video reaproveita em cada vídeo
+$ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 ```
 
 
@@ -97,6 +101,9 @@ $ for skill in code-review elite-web-experience java-clean-architecture \
 ├── elite-web-experience.md       Web Design, UX/UI, front-end e acessibilidade
 ├── java-clean-architecture.md    Backend Java e Spring com Clean Architecture
 ├── project-classifier.md         Classificação do projeto e fluxo de release
+├── project-video.md              Vídeo de apresentação em 4K com motion graphics
+├── project-video
+│   └── modelo                    Síntese de áudio, animações, texto revelado e GIF
 ├── release-project.md            Commit, push e Pull Request com segurança
 ├── start-project.md              Onboarding em um repositório e documentação
 └── testing.md                    Estratégia de testes e validação honesta
