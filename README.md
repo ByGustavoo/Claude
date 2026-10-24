@@ -82,9 +82,6 @@ $ for skill in code-review elite-web-experience java-clean-architecture \
     cp Claude/$skill.md ~/.claude/skills/$skill/SKILL.md
   done
 
-# Copia o guia das páginas de erro que a elite-web-experience lê
-$ cp Claude/elite-web-experience/paginas-de-erro.md ~/.claude/skills/elite-web-experience/
-
 # Copia os arquivos-modelo que a project-video reaproveita em cada vídeo
 $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 ```
@@ -102,8 +99,6 @@ $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 ├── CLAUDE.md                     Instruções globais: quando acionar a elite-web-experience
 ├── code-review.md                Revisão de mudanças e caça a regressões
 ├── elite-web-experience.md       Web Design, UX/UI, front-end e acessibilidade
-├── elite-web-experience
-│   └── paginas-de-erro.md        Padrão aprovado das páginas 404, 403 e de falha geral
 ├── java-clean-architecture.md    Backend Java e Spring com Clean Architecture
 ├── project-classifier.md         Classificação do projeto e fluxo de release
 ├── project-video.md              Vídeo de apresentação em 4K com motion graphics
