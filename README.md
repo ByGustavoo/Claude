@@ -28,7 +28,7 @@
 |---|---|
 | 🗂️ `start-project` | Abrir um repositório desconhecido, auditá-lo e criar ou atualizar o `CLAUDE.md` e o `README.md` a partir de fatos verificados |
 | 🔍 `project-classifier` | Classificar o tipo do projeto com base em evidências reais e derivar o fluxo de publicação e as skills que se aplicam |
-| 🎨 `elite-web-experience` | Qualquer trabalho de interface web — layout, componentes, CSS, tipografia, acessibilidade, responsividade e animações |
+| 🎨 `elite-web-experience` | Qualquer trabalho de interface web — layout, componentes, CSS, tipografia, acessibilidade, responsividade e animações, inclusive as páginas de erro 404, 403 e de falha geral |
 | ☕ `java-clean-architecture` | Backend Java / Kotlin / Spring Boot — fronteiras de Clean Architecture, portas e adaptadores, JPA, transações e semântica REST |
 | ✅ `testing` | Definir e executar a estratégia de testes proporcional ao risco da mudança, antes de declarar qualquer trabalho concluído |
 | 🎬 `project-video` | Pedido de vídeo de apresentação, demo ou motion graphics — analisa o projeto, destaca as principais ferramentas e renderiza em 4K com Remotion, com GIF para o README |
@@ -82,6 +82,9 @@ $ for skill in code-review elite-web-experience java-clean-architecture \
     cp Claude/$skill.md ~/.claude/skills/$skill/SKILL.md
   done
 
+# Copia o guia das páginas de erro que a elite-web-experience lê
+$ cp Claude/elite-web-experience/paginas-de-erro.md ~/.claude/skills/elite-web-experience/
+
 # Copia os arquivos-modelo que a project-video reaproveita em cada vídeo
 $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 ```
@@ -99,6 +102,8 @@ $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 ├── CLAUDE.md                     Instruções globais: quando acionar a elite-web-experience
 ├── code-review.md                Revisão de mudanças e caça a regressões
 ├── elite-web-experience.md       Web Design, UX/UI, front-end e acessibilidade
+├── elite-web-experience
+│   └── paginas-de-erro.md        Padrão aprovado das páginas 404, 403 e de falha geral
 ├── java-clean-architecture.md    Backend Java e Spring com Clean Architecture
 ├── project-classifier.md         Classificação do projeto e fluxo de release
 ├── project-video.md              Vídeo de apresentação em 4K com motion graphics

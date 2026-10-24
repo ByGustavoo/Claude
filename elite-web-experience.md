@@ -1,6 +1,6 @@
 ---
 name: elite-web-experience
-description: Especialista em Web Design, UX/UI, Product Design, Responsive Design, Front-end, Motion Design, Acessibilidade e Visual QA. Analisa o projeto existente, conduz uma descoberta de produto com perguntas numeradas e recomendações antes de construir algo novo, pesquisa referências profissionais, entende público e objetivo do produto, identifica problemas de interface, implementa melhorias e valida o resultado — abrindo obrigatoriamente o navegador (Chrome) para ver com os próprios olhos o que foi feito e corrigir o que estiver errado antes de entregar. Use esta skill em qualquer tarefa que crie ou altere interface web — páginas, landing pages, dashboards, componentes, formulários, modais, navegação, CSS/Tailwind, layout, tipografia, cores, espaçamento, ícones, textos de interface, estados, animações ou responsividade — inclusive em pedidos vagos como "melhora esse site", "tá feio", "deixa mais profissional" e em ajustes pequenos como "muda a cor desse botão".
+description: Especialista em Web Design, UX/UI, Product Design, Responsive Design, Front-end, Motion Design, Acessibilidade e Visual QA. Analisa o projeto existente, conduz uma descoberta de produto com perguntas numeradas e recomendações antes de construir algo novo, pesquisa referências profissionais, entende público e objetivo do produto, identifica problemas de interface, implementa melhorias e valida o resultado — abrindo obrigatoriamente o navegador (Chrome) para ver com os próprios olhos o que foi feito e corrigir o que estiver errado antes de entregar. Use esta skill em qualquer tarefa que crie ou altere interface web — páginas, landing pages, dashboards, páginas de erro (404, 403, falha geral), componentes, formulários, modais, navegação, CSS/Tailwind, layout, tipografia, cores, espaçamento, ícones, textos de interface, estados, animações ou responsividade — inclusive em pedidos vagos como "melhora esse site", "tá feio", "deixa mais profissional" e em ajustes pequenos como "muda a cor desse botão".
 ---
 
 # Elite Web Experience
@@ -49,6 +49,7 @@ Adapte a profundidade do ciclo ao pedido — mas as etapas **Inspecionar** e **V
 | "Crie um app/sistema/módulo/funcionalidade X" | Descoberta de produto (§4): entendimento, funcionalidades, fluxos, perguntas e sugestões → **parar e aguardar respostas** → registrar decisões → só então planejar e implementar |
 | "Crie um site/página para X" | Entender produto, público e objetivo → pesquisar referências → definir direção visual → implementar → abrir no Chrome e verificar → corrigir → refinar |
 | "Melhore meu site" | Ler o código → executar e abrir no Chrome → inspecionar → identificar e priorizar problemas → implementar → reabrir e verificar → refinar |
+| "Faça a tela 404 / 403 / de erro" | Ler `paginas-de-erro.md` (nesta pasta da skill) e as páginas de erro dos projetos irmãos que ele aponta → propor 3 ou 4 cenas com prévia (só na primeira 404 do projeto) → construir a moldura compartilhada com o fundo animado → abrir no Chrome cada página e cada variante → corrigir → refinar |
 | "Mude esse botão" | Entender contexto → conferir o design system → alterar → abrir no Chrome e revisar estados e responsividade → corrigir o que aparecer → finalizar |
 | "Faça do seu jeito" | Assuma a direção criativa e decida, justificando as escolhas principais em poucas linhas — e ainda assim abra no Chrome antes de entregar |
 
@@ -240,6 +241,10 @@ Larguras de referência: 320, 375, 390, 430, 768, 820, 1024, 1280, 1440, 1920.
 Mobile não é desktop reduzido. Reveja hierarquia, densidade, navegação e ordem do conteúdo para o contexto de uso — não apenas o empilhamento das colunas.
 
 Tabelas merecem atenção específica: em telas estreitas, escolha entre scroll horizontal com a primeira coluna fixa, virar cada linha em card, ou esconder colunas secundárias. Espremer todas as colunas é a única opção que nunca funciona.
+
+### Páginas de erro
+
+Para uma página 404, uma 403 ou a tela de erro geral, leia `paginas-de-erro.md`, nesta mesma pasta, antes de qualquer outra coisa. Ele traz o padrão que o usuário aprovou e as versões que ele já recusou: cena com movimento no vocabulário do produto, fundo animado, uma moldura para as três páginas, a 403 sem dizer qual permissão falta e a falha geral fora do roteador.
 
 ### Foco
 
