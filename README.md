@@ -16,6 +16,8 @@
 
 * 🧩 9 Skills especializadas em Markdown
 
+* 🤖 9 Agentes da equipe de vídeos do TikTok
+
 
 <br>
 
@@ -35,6 +37,32 @@
 | 📱 `short-form-video` | Vídeo vertical narrado para TikTok, Reels ou Shorts — roteiro, voz, legendas palavra por palavra e motion graphics em 4K 60 fps, seguindo as correções já feitas e a marca do canal |
 | 🕵️ `code-review` | Revisar um diff em busca de regressões, falhas de segurança, perda de dados e regras de negócio quebradas |
 | 🚀 `release-project` | Preparar e publicar as mudanças — inspeção do diff, numeração sequencial do commit e escolha entre push direto ou Pull Request |
+
+
+<br>
+
+
+## 🤖 Agentes do TikTok
+
+Equipe que produz os vídeos do canal Explica Aí, cada agente responsável por uma etapa. A conversa principal faz o papel de **Produtor**: é a única que fala com o usuário, chama cada agente na ordem certa e só segue para a próxima etapa depois da aprovação dele.
+
+<br>
+
+| Agente | O que faz | Modelo |
+|---|---|---|
+| 📈 `tiktok-analista-tendencias` | Lista os tópicos em alta no Brasil pelo TikTok Studio e confere se as hashtags do post existem | Sonnet · médio |
+| 🔎 `tiktok-pesquisador` | Procura vídeos parecidos no TikTok e anota números, transcrição e o que funcionou | Sonnet · médio |
+| ✍️ `tiktok-roteirista` | Escreve o roteiro falado de 1:05 a 1:20, com gancho e palavras de destaque | Opus · alto |
+| ✅ `tiktok-verificador` | Pesquisa o tema em fontes confiáveis e confere cada fato do roteiro, com link e data | Opus · alto |
+| 🎙️ `tiktok-diretor-voz` | Prepara os textos do ElevenLabs com marcações de emoção e confere os MP3s baixados | Opus · médio |
+| 💬 `tiktok-legendador` | Monta as legendas palavra por palavra sincronizadas com a narração | Sonnet · médio |
+| 🎞️ `tiktok-animador` | Descreve o storyboard e depois constrói as cenas em Remotion | Opus · alto |
+| 🎬 `tiktok-editor` | Prepara o projeto, renderiza o piloto em Full HD e o final em 4K 60 fps | Sonnet · médio |
+| 🖼️ `tiktok-designer-capa` | Cria a capa 3:4 em 4K e escreve a descrição do post | Opus · alto |
+
+<br>
+
+Os agentes usam as regras da skill `short-form-video` em vez de copiá-las, então uma correção feita na skill vale para todos.
 
 
 <br>
@@ -88,6 +116,13 @@ $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 $ cp -r Claude/short-form-video/modelo ~/.claude/skills/short-form-video/
 ```
 
+🔹 Agentes
+```bash
+# Copia os agentes do TikTok para a pasta de agentes do Claude Code
+$ mkdir -p ~/.claude/agents
+$ cp Claude/agentes/tiktok/*.md ~/.claude/agents/
+```
+
 
 <br>
 
@@ -98,6 +133,8 @@ $ cp -r Claude/short-form-video/modelo ~/.claude/skills/short-form-video/
 
 ```bash
 .
+├── agentes
+│   └── tiktok                    9 agentes da equipe de vídeos do TikTok
 ├── CLAUDE.md                     Instruções globais: quando acionar a elite-web-experience
 ├── code-review.md                Revisão de mudanças e caça a regressões
 ├── elite-web-experience.md       Web Design, UX/UI, front-end e acessibilidade
