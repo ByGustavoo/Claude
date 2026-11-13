@@ -14,9 +14,25 @@ Deliverables:
 - a Remotion project under `C:\Users\Usuário\Videos\<tema>`, separate per video;
 - Full HD pilots for review;
 - a final 2160×3840 60 fps master, loudness-normalized for TikTok;
-- the narration texts the user records or generates.
+- the narration texts the user records or generates;
+- a 3:4 4K cover, the post description and verified hashtags (§12).
 
 This skill is the opposite of `project-video`. That one sells a product with its real UI in 16:9. This one tells a story about a topic, for a social feed, driven by a narrator.
+
+## Platform specs (TikTok upload rules the user gave)
+
+Apply these to every final file:
+
+| Rule | TikTok limit | What we always deliver |
+|---|---|---|
+| File size | max 30 GB | a 3-min 4K60 master is about 70 MB; check with `ls -la` |
+| Duration | max 60 min | target 1:05–1:20, ceiling 1:30 (see §2) |
+| Format | `.mp4` recommended | `.mp4`, H.264 + AAC, `-movflags +faststart` |
+| Resolution | 1080p, 1440p or 4K recommended | **always 4K**. Pilots stay Full HD only for review |
+| Aspect ratio | 16:9 landscape, 9:16 vertical | **9:16 vertical by default: 2160×3840.** 16:9 (3840×2160) only if the user asks for a landscape video |
+
+- Before delivering, confirm with ffprobe that the file is `.mp4`, 2160×3840 (or 3840×2160 if landscape), under 30 GB and under 60 min.
+- If a request would break a limit (for example a 70-minute video), say so before rendering.
 
 ## What can and cannot be made
 
@@ -87,7 +103,12 @@ These are hard rules learned from this user:
   - use reticências for pauses;
   - keep sentences short and use exclamations where the narrator warns.
   - Words that drive animations ("200", "apertou", "devolve") must stay stable across rewrites. Keep a backup of the old script (`out/backup_*/roteiro_v1.json`).
-- **Duration:** above 1 minute counts for TikTok monetization. 2:45–3:05 worked for 5 items. Let the content set the length.
+- **Duration (the user adopted this rule on 2026-11-13):**
+  - **Target 1:05–1:20.** It passes 1 minute, the minimum for TikTok monetization, and sits in the range that performed best in the analysis of 19 reference videos: 45–90 s won, and the 130–157 s ones all underperformed.
+  - **Ceiling 1:30.** Go there only when the content needs it (e.g. a 5-item list such as the golpe do aluguel). The first video (5 golpes do Pix, 3:03) is longer than this rule: don't use its length as a model.
+  - **Never pad to hit a time.** If the script closes at 1:05, it stays 1:05. A stretched video makes people leave midway, and that hurts reach more than a short video does.
+  - **Retention matters more than length.** Put something new on screen every 15–20 s (a stamp, a number, a twist) so people don't swipe away.
+  - Estimate the length from the script before recording: about 2.5 words per second including pauses (measured on the first video: 460 words in 3:03). So 1:05–1:20 is roughly 160–200 words. When it runs long, cut copy, not pauses.
 - **`roteiro.json`:** one block per scene (`abertura`, `item5`…`item1`, `protecao`, `chamada`), each with the spoken `texto`.
 
 ### 3. Voice
