@@ -60,6 +60,7 @@ These are hard rules learned from this user:
 9. Pilot and review loop
 10. Final 4K 60 fps
 11. Deliver
+12. Cover, description and hashtags (always, once the final is ready)
 
 ### 1. Analyze references
 
@@ -325,6 +326,53 @@ A 3-minute render takes about 20–30 min.
 - Posting tips:
   - transfer the original file (cable, Drive, Nearby), never through WhatsApp, which recompresses;
   - enable "alta qualidade" on upload.
+
+### 12. Cover, description and hashtags (mandatory)
+
+Every time the final video is done, do this step without being asked. The user asked for it permanently.
+
+**Cover image**
+
+- **Format:** always **3:4 portrait, in 4K: 2880×3840 px, PNG**. The user corrected this explicitly: **not 4:3** (landscape is useless on TikTok), and not the full 9:16 frame.
+- **How:**
+  1. Build the full 1080×1920 `Capa` composition.
+  2. Wrap it in `CapaTresQuartos` at 1080×1440: shift the Capa up 240 px and scale it to 0.92 around its center, so everything fits with a margin ("um pouquinho menor"). Template: `modelo/src/Capa.tsx`, registered in `modelo/src/Raiz.tsx`.
+  3. Render it with `npx remotion still src/index.ts CapaTresQuartos out/capa/capa-<tema>-3x4-4k.png --scale=2.6667`.
+  4. Check that the result is 2880×3840.
+- **Do not grab a frame from the video:** compose the cover from the video's own elements.
+- **Layout, top to bottom:**
+  - brand chip (mascot + "Explica Aí");
+  - the big title in the video's colors, then the subtitle;
+  - the key visual (e.g. the receipt with the highlighted line), tilted, with the character peeking from behind it;
+  - the countdown chips with #1 locked;
+  - the hook pill.
+- **Check the preview:**
+  - nothing overlaps (the card must not touch the title or the chips);
+  - no value or label wraps (widen or scale the card instead of letting "R$ 2.000,00" break);
+  - the character stays visible;
+  - margins at the top and bottom.
+- If the file is open in a viewer, Windows locks it and the render fails with `UNKNOWN: open`. Render to a new name instead.
+- Save it to `out/capa/`, open it for the user and give the path.
+
+**Description**
+
+- Write it ready to paste, in a code block:
+  1. the hook as the first line (it shows before "mais");
+  2. one or two lines naming the topics with the words people search for ("falsa central do banco", "MED do Pix"), because TikTok search reads the description;
+  3. a save/share line;
+  4. a comment question that matches the video's ending.
+- Explain briefly why each part is there.
+
+**Hashtags**
+
+- Use 4–6 topic hashtags, broad and niche mixed. No `#fyp`/`#viral`.
+- **Only hashtags that exist on TikTok.** Verify each one before delivering:
+  1. Open `https://www.tiktok.com/tag/<hashtag>` in Claude in Chrome.
+  2. Read the post or view count on the page.
+  3. Drop any tag with no page or a tiny count.
+  4. Show the count next to each tag in the table.
+  - TikTok blocks curl/WebFetch ("Please wait…"). If Chrome is not connected, say the tags are not verified yet and ask the user to connect it. Never claim they exist without checking.
+- Also give 3–4 verified alternatives, plus the tip to put the main keyword in the on-screen text and cover.
 
 ## Channel brand: Explica Aí
 
