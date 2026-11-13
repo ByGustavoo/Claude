@@ -18,6 +18,8 @@ export const ZAP = {
 
 export const ALTURA_CABECALHO = TELA.barraStatus + 126;
 export const LIMITE_VISIVEL = 930;
+export const ESPACO_CARIMBO = 200;
+export const TOPO_CARIMBO_ZAP = 1460;
 
 export type Lado = 'recebida' | 'enviada' | 'sistema' | 'data' | 'digitando';
 
@@ -192,7 +194,7 @@ function SeloMarca({ numero, opacidade }: { numero: number; opacidade: number })
   );
 }
 
-export function ConversaZap({ cabecalho, mensagens }: { cabecalho: CabecalhoZap; mensagens: MensagemZap[] }) {
+export function ConversaZap({ cabecalho, mensagens, espacoFinal = 0 }: { cabecalho: CabecalhoZap; mensagens: MensagemZap[]; espacoFinal?: number }) {
   const quadro = useQuadro();
   const comDigitacao: MensagemZap[] = [];
   mensagens.forEach((mensagem, indice) => {
@@ -265,7 +267,7 @@ export function ConversaZap({ cabecalho, mensagens }: { cabecalho: CabecalhoZap;
           flexDirection: 'column',
           justifyContent: 'flex-end',
           overflow: 'hidden',
-          paddingBottom: 10,
+          paddingBottom: 10 + espacoFinal,
         }}
       >
         {visiveis.map((mensagem, indice) => {

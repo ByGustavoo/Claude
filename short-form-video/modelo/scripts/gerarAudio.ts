@@ -220,7 +220,7 @@ carimbo(s(g4.confianca + 6));
 balao(s(g4.especial));
 balao(s(g4.deposita));
 carimbo(s(g4.some + 8));
-positivo(s(g4.se + 14), 'A4');
+positivo(s(g4.se + 54), 'A4');
 
 const g3 = deixas.golpe3;
 notificacao(s(g3.quinhentos));

@@ -124,9 +124,9 @@ export function DicaCentral({ inicio, fim, titulo, texto }: { inicio: number; fi
   const quadro = useQuadro();
   if (quadro < inicio - 1) return null;
   const cartao = progresso(quadro, inicio, 24, curvaSaida);
-  const cabecalho = progresso(quadro, inicio + 6, 16, curvaSaida);
-  const manchete = progresso(quadro, inicio + 12, 18, curvaSaida);
-  const apoio = progresso(quadro, inicio + 24, 18, curvaSaida);
+  const cabecalho = progresso(quadro, inicio, 18, curvaSaida);
+  const manchete = progresso(quadro, inicio + 6, 18, curvaSaida);
+  const apoio = progresso(quadro, inicio + 16, 18, curvaSaida);
   const saida = fim === undefined ? 0 : progresso(quadro, fim, 14, curvaEntradaSaida);
   if (saida >= 1) return null;
   const linha = (t: number): CSSProperties => ({ opacity: t, transform: `translateY(${misturar(18, 0, t)}px)` });

@@ -222,10 +222,19 @@ Python tools (Whisper, imageio-ffmpeg, PIL) live in the project `.venv`. The sys
 
 - **Protection card (`DicaCentral`):**
   - starts `ESPERA_DICA = 30` frames after the phone's exit begins. The exit lasts 24, so there is a short empty beat of about 0.2 s;
-  - builds in stages: card +0, header +6, title +12, support line +24;
+  - builds in stages: card and header +0, title +6, support line +16. Never show the empty box alone: a blank card for 0.2 s read as a glitch;
   - highlights only the 1–3 words with real impact;
   - title `lineHeight` ≥ 1.2, so lines never touch ("é golpe" touched "pra").
 - **Stamps (`Carimbo`)** end with "!": "Nunca chega!", "Não existe!", "Pagou 2x!". Matching caption lines also use "!".
+  - **A stamp never covers text.** Place it in free space next to what it judges:
+    - below a receipt card;
+    - beside a balance;
+    - over a picture, never over a label.
+  - In chats there is no free space, so open it. `ConversaZap espacoFinal={ESPACO_CARIMBO * t}` pushes the messages up, like a new message would, and the stamp sits at `TOPO_CARIMBO_ZAP` (1460).
+  - On the call screen, slide the end-call button down 150 px before the stamp, and move its `Toque` to match.
+  - Finish the stamp's fade about 22 frames before any tap underneath it.
+  - Check that every stamp really appears: `inicio < fim`, and the phone must still be on screen. "Sumiu!" was programmed to start after the phone had already left, and it never showed.
+- **Hold the phone after the last story beat.** The final event ("Ana removeu você") needs about 1.5 s on screen before the exit starts. If you delay the exit, move the protection card's `positivo` sound in `gerarAudio.ts` by the same amount.
 - **Headlines:**
   - never leave a single word on the last line ("cair" alone). Rewrite into two balanced lines;
   - no two-color word salads (two red words looked bad). Use white plus, at most, one accent phrase.
@@ -277,7 +286,9 @@ Python tools (Whisper, imageio-ffmpeg, PIL) live in the project `.venv`. The sys
    - things appearing without animation;
    - serif fallbacks;
    - text cut by cards;
-   - status bar contrast.
+   - status bar contrast;
+   - stamps covering text, or stamps that never show up;
+   - empty boxes that show before their content.
 5. Open the pilot for the user and report:
    - path;
    - duration;
