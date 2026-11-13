@@ -1,0 +1,53 @@
+{
+  "voz": "pt-BR-AntonioNeural",
+  "velocidade": "+12%",
+  "pausaEntreCenas": 0.3,
+  "cenas": [
+    {
+      "id": "abertura",
+      "texto": "Um clique. Foi só disso que ele precisou pra levar o seu dinheiro. E olha... sem hackear nada, tá? Foi você mesmo que apertou enviar. Esses são os cinco golpes do Pix que mais pegam brasileiro. E fica até o final, porque o número um... engana até gente esperta."
+    },
+    {
+      "id": "golpe5",
+      "texto": "Número cinco... a loja falsa. Sabe aquela promoção boa demais? Num site idêntico ao da loja de verdade... e o pagamento só aceita Pix. Aí você paga, e o produto? Nunca chega! Então, antes de confirmar, olha o nome de quem vai receber. Se não é o nome da empresa... cancela."
+    },
+    {
+      "id": "golpe4",
+      "texto": "Número quatro... as tarefas pagas. Te chamam pra ganhar dinheiro curtindo vídeos. E no começo eles pagam mesmo, viu? Uns trocados no Pix, só pra ganhar a sua confiança. Aí vem a tal da tarefa especial: deposita 200 reais pra liberar ganhos maiores. Você deposita... e o grupo some. Se pra ganhar você precisa pagar primeiro, é golpe!"
+    },
+    {
+      "id": "golpe3",
+      "texto": "Número três... o Pix por engano. Caem 500 reais na sua conta, de alguém que você nem conhece. Minutos depois, chega a mensagem: “Te mandei por engano, devolve nessa outra chave?” E você, de boa, devolve. Só que aí o golpista pede o estorno do Pix original pro banco... e o dinheiro sai da sua conta de novo. Resultado? Você paga duas vezes! Então, recebeu por engano? Devolve só pelo botão de devolução, na própria transação. Nunca pra outra chave."
+    },
+    {
+      "id": "golpe2",
+      "texto": "Número dois... a falsa central do banco. Toca o telefone: “Aqui é da central de segurança, identificamos uma compra suspeita no seu cartão.” E eles sabem seu nome, seu CPF... e falam com uma calma! Aí, pra proteger o seu dinheiro, pedem um Pix pra uma conta segura. Só que conta segura não existe! Nenhum banco pede Pix pra cancelar compra. Desliga... e liga você mesmo no número que tá atrás do cartão."
+    },
+    {
+      "id": "golpe1",
+      "texto": "E o número um... o falso parente. Chega uma mensagem de um número novo, com a foto do seu filho: “Oi mãe, troquei de número.” E logo depois: “Tô com um problema, preciso pagar uma conta urgente... amanhã te devolvo.” A pressa é a arma do golpista. Então, antes de qualquer Pix, liga pro número antigo. Ou faz uma pergunta que só ele saberia responder."
+    },
+    {
+      "id": "protecao",
+      "texto": "E se você já caiu em algum desses? Calma. Avisa o seu banco na hora e pede o MED, o mecanismo especial de devolução do Pix. Dá pra contestar direto no aplicativo, em até 80 dias... mas quanto antes, maior a chance de recuperar. Registra um boletim de ocorrência. E, de quebra, diminui o limite do seu Pix à noite."
+    },
+    {
+      "id": "chamada",
+      "texto": "Agora manda esse vídeo pra aquela pessoa que você sabe que ia cair. E comenta aqui embaixo: qual desses golpes já tentaram com você?"
+    }
+  ],
+  "vozLocal": {
+    "exageracao": 0.5,
+    "cfg": 0.4,
+    "temperatura": 0.75,
+    "tempo": 1.08
+  },
+  "elevenlabs": {
+    "voz": "gotf0JomgaBfixtlCkBo",
+    "modelo": "eleven_multilingual_v2",
+    "estabilidade": 0.45,
+    "similaridade": 0.8,
+    "estilo": 0.2,
+    "velocidade": 1.05
+  }
+}

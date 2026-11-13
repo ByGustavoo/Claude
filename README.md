@@ -14,7 +14,7 @@
 
 * 🧠 1 arquivo de instruções globais (`CLAUDE.md`)
 
-* 🧩 8 Skills especializadas em Markdown
+* 🧩 9 Skills especializadas em Markdown
 
 
 <br>
@@ -32,6 +32,7 @@
 | ☕ `java-clean-architecture` | Backend Java / Kotlin / Spring Boot — fronteiras de Clean Architecture, portas e adaptadores, JPA, transações e semântica REST |
 | ✅ `testing` | Definir e executar a estratégia de testes proporcional ao risco da mudança, antes de declarar qualquer trabalho concluído |
 | 🎬 `project-video` | Pedido de vídeo de apresentação, demo ou motion graphics — analisa o projeto, destaca as principais ferramentas e renderiza em 4K com Remotion, com GIF para o README |
+| 📱 `short-form-video` | Vídeo vertical narrado para TikTok, Reels ou Shorts — roteiro, voz, legendas palavra por palavra e motion graphics em 4K 60 fps, seguindo as correções já feitas e a marca do canal |
 | 🕵️ `code-review` | Revisar um diff em busca de regressões, falhas de segurança, perda de dados e regras de negócio quebradas |
 | 🚀 `release-project` | Preparar e publicar as mudanças — inspeção do diff, numeração sequencial do commit e escolha entre push direto ou Pull Request |
 
@@ -77,13 +78,14 @@ $ cp Claude/CLAUDE.md ~/.claude/CLAUDE.md
 ```bash
 # Cria a pasta de cada skill e copia o arquivo como SKILL.md
 $ for skill in code-review elite-web-experience java-clean-architecture \
-               project-classifier project-video release-project start-project testing; do
+               project-classifier project-video release-project short-form-video start-project testing; do
     mkdir -p ~/.claude/skills/$skill
     cp Claude/$skill.md ~/.claude/skills/$skill/SKILL.md
   done
 
-# Copia os arquivos-modelo que a project-video reaproveita em cada vídeo
+# Copia os arquivos-modelo que a project-video e a short-form-video reaproveitam em cada vídeo
 $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
+$ cp -r Claude/short-form-video/modelo ~/.claude/skills/short-form-video/
 ```
 
 
@@ -105,6 +107,9 @@ $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 ├── project-video
 │   └── modelo                    Síntese de áudio, animações, texto revelado e GIF
 ├── release-project.md            Commit, push e Pull Request com segurança
+├── short-form-video.md           Vídeo vertical narrado para TikTok, Reels e Shorts
+├── short-form-video
+│   └── modelo                    iPhone, chat, legendas, voz, revisão e foto de perfil
 ├── start-project.md              Onboarding em um repositório e documentação
 └── testing.md                    Estratégia de testes e validação honesta
 ```

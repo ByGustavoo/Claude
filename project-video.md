@@ -1,6 +1,6 @@
 ---
 name: project-video
-description: Analyze a project, pick its main features and turn them into a professional motion-graphics presentation video rendered in 4K with Remotion, plus a README GIF. Use whenever the user asks for a video, vídeo de apresentação, demo, teaser, trailer, "vídeo mostrando a ferramenta", motion graphics, or an animated showcase of an app, site, API or tool, even when they only give a duration or a format. Trigger it before writing any Remotion code, because the content plan, the shared timeline and the audio rules decide most of the quality and are expensive to retrofit.
+description: Analyze a project, pick its main features and turn them into a professional motion-graphics presentation video rendered in 4K with Remotion, plus a README GIF. Use whenever the user asks for a video, vídeo de apresentação, demo, teaser, trailer, "vídeo mostrando a ferramenta", motion graphics, or an animated showcase of an app, site, API or tool, even when they only give a duration or a format. Trigger it before writing any Remotion code, because the content plan, the shared timeline and the audio rules decide most of the quality and are expensive to retrofit. Not for narrated social/short-form content (TikTok, Reels, Shorts, a vídeo pro canal Explica Aí about a topic) — use `short-form-video` for those.
 ---
 
 # Project Video
