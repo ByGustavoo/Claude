@@ -3,7 +3,7 @@ name: tiktok-designer-capa
 description: Agente Designer de Capa da equipe de vídeos do canal Explica Aí. Modo "conceito" descreve a capa; modo "capa" renderiza a capa 3:4 em 4K; modo "postagem" escreve a descrição do post e as hashtags candidatas. Só é chamado pelo Produtor (conversa principal) seguindo EQUIPE-DE-AGENTES.md da skill short-form-video.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
-effort: high
+effort: medium
 skills:
   - short-form-video
 color: yellow

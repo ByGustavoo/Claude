@@ -59,4 +59,8 @@ Write `2-roteiro\checagem.md`: a table (cena, afirmação, veredito, correção,
 
 Rules the Produtor added after real mistakes, with date and video. **Read them before you start: they override anything above.** Never edit this section yourself.
 
-- (nenhuma ainda)
+- 2026-11-13 · Video 02: uma frase que você mesmo sugere no dossiê (§6, redações) passa pela mesma checagem de qualquer fato antes de ir para o roteiro, com fonte que a sustente. Motivo: "Se o cupom é de verdade, ele está lá" veio do dossiê sem fonte e virou o único ⚠️ da checagem.
+- 2026-11-13 · Video 02: quando o WebFetch não lê um PDF, abra com Read o arquivo que ele salvou; nunca cite um PDF sem ter lido. Motivo: foi assim que a cartilha da Senacon e a portaria do Procon-SP foram confirmadas.
+- 2026-11-13 · Video 02: para conferir um nome de marca ou loja fictícia, além da busca na web, faça a consulta de DNS/RDAP de nome.com.br e nome.com. Um domínio registrado sem conteúdo indexado não aparece na busca. Motivo: "Vitrinova" passou na busca, mas vitrinova.com.br está registrado desde 27/06/2026.
+- 2026-11-13 · Video 02: quando uma cena é reescrita depois da checagem, a nova seção do checagem.md diz quais linhas antigas ela substitui, para a tabela não guardar afirmações que saíram do roteiro.
+- 2026-11-13 · Video 02: para conferir um nome fictício, além do DNS/RDAP e da busca na web, abra direto instagram.com/<nome> e t.me/<nome>. Perfis pequenos não aparecem na busca. Motivo: "Ofertalume" passou na checagem da v2, mas existe @ofertalume no Instagram e no Telegram.

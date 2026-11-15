@@ -12,7 +12,7 @@ import imageio_ffmpeg
 
 RAIZ = Path(__file__).resolve().parent.parent
 ROTEIRO = RAIZ / "roteiro.json"
-PASTA_ENTRADA = RAIZ / "elevenlabs"
+PASTA_ENTRADA = RAIZ.parent / "3-voz"
 PASTA_TRABALHO = RAIZ / "out" / "voz_externa"
 SAIDA_AUDIO = RAIZ / "public" / "audio" / "voz.wav"
 SAIDA_DADOS = RAIZ / "src" / "narracao.json"

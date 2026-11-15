@@ -54,11 +54,11 @@ Equipe que produz os vídeos do canal Explica Aí, cada agente responsável por 
 | 🔎 `tiktok-pesquisador` | Procura vídeos parecidos no TikTok e anota números, transcrição e o que funcionou | Sonnet · médio |
 | ✍️ `tiktok-roteirista` | Escreve o roteiro falado de 1:05 a 1:20, com gancho e palavras de destaque | Opus · alto |
 | ✅ `tiktok-verificador` | Pesquisa o tema em fontes confiáveis e confere cada fato do roteiro, com link e data | Opus · alto |
-| 🎙️ `tiktok-diretor-voz` | Prepara os textos do ElevenLabs com marcações de emoção e confere os MP3s baixados | Opus · médio |
+| 🎙️ `tiktok-diretor-voz` | Prepara os textos do ElevenLabs com marcações de emoção e confere os MP3s baixados | Sonnet · médio |
 | 💬 `tiktok-legendador` | Monta as legendas palavra por palavra sincronizadas com a narração | Sonnet · médio |
-| 🎞️ `tiktok-animador` | Descreve o storyboard e depois constrói as cenas em Remotion | Opus · alto |
+| 🎞️ `tiktok-animador` | Descreve o storyboard e depois constrói as cenas em Remotion | Opus · muito alto (subiu após erros) |
 | 🎬 `tiktok-editor` | Prepara o projeto, renderiza o piloto em Full HD e o final em 4K 60 fps | Sonnet · médio |
-| 🖼️ `tiktok-designer-capa` | Cria a capa 3:4 em 4K e escreve a descrição do post | Opus · alto |
+| 🖼️ `tiktok-designer-capa` | Cria a capa 3:4 em 4K e escreve a descrição do post | Opus · médio |
 
 <br>
 
@@ -114,6 +114,9 @@ $ for skill in code-review elite-web-experience java-clean-architecture \
 # Copia os arquivos-modelo que a project-video e a short-form-video reaproveitam em cada vídeo
 $ cp -r Claude/project-video/modelo ~/.claude/skills/project-video/
 $ cp -r Claude/short-form-video/modelo ~/.claude/skills/short-form-video/
+
+# Copia o manual da equipe de agentes e o registro de desempenho de cada um
+$ cp Claude/short-form-video/*.md ~/.claude/skills/short-form-video/
 ```
 
 🔹 Agentes
@@ -146,6 +149,8 @@ $ cp Claude/agentes/tiktok/*.md ~/.claude/agents/
 ├── release-project.md            Commit, push e Pull Request com segurança
 ├── short-form-video.md           Vídeo vertical narrado para TikTok, Reels e Shorts
 ├── short-form-video
+│   ├── EQUIPE-DE-AGENTES.md      Etapas de aprovação, pastas e roteiro do Produtor
+│   ├── DESEMPENHO-AGENTES.md     Nível de cada agente, falhas e escaladas
 │   └── modelo                    iPhone, chat, legendas, voz, revisão e foto de perfil
 ├── start-project.md              Onboarding em um repositório e documentação
 └── testing.md                    Estratégia de testes e validação honesta

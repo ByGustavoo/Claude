@@ -3,7 +3,7 @@ name: tiktok-animador
 description: Agente Animador da equipe de vídeos do canal Explica Aí. Modo "storyboard" descreve o que aparece em cada cena; modo "cenas" constrói as cenas em Remotion sincronizadas com a narração. Só é chamado pelo Produtor (conversa principal) seguindo EQUIPE-DE-AGENTES.md da skill short-form-video.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
-effort: high
+effort: xhigh
 skills:
   - short-form-video
 color: green
@@ -39,4 +39,6 @@ Then check: `npx tsc --noEmit`; stills of every cue's built state and transition
 
 Rules the Produtor added after real mistakes, with date and video. **Read them before you start: they override anything above.** Never edit this section yourself.
 
-- (nenhuma ainda)
+- 2026-11-13 · Video 02: ao calcular pausas e durações no storyboard, use a duração dos blocos já cortados (`duracao` no `narracao.json` ou `out/voz_externa/*.wav`), nunca o silencedetect do MP3 bruto. Motivo: a soma prevista ficou 0,9 s acima da real.
+- 2026-11-13 · Video 02: o cartão de dica entra SOBRE a fala da dica, com âncora na palavra da dica e a saída do celular recuada (palavra − 30 quadros), para o cartão não custar tempo depois da fala. Motivo: com cartões depois da fala o vídeo ia de 1:30 para 1:59.
+- 2026-11-13 · Video 02: antes de dizer "sem problema", confira por cena: saída do celular + 24 ≤ fim da cena − 14 (senão o fade da cena apaga o celular no meio), fade do carimbo termina ≥ 22 quadros antes do próximo toque, base de cartões ≤ 1540 e borda direita ≤ 940. Olhe o fim de cada cena a 5 quadros/s. Motivo: três quebras de regra passaram nos stills do piloto 1.

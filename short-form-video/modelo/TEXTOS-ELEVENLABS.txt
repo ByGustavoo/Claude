@@ -1,36 +1,57 @@
 TEXTOS PARA GERAR NO ELEVENLABS (versão falada)
 ==============================================
 
-Modelo recomendado: Eleven v3  ·  Stability: Natural (ou Creative)
-Vozes pra testar: Isaias - Natural Podcast · Fabio Oliveira · Weverton
-Gere 2 ou 3 vezes cada bloco e fique com a melhor.
+MODELO: Eleven v4 (não o Turbo)
 
-As palavras entre colchetes, como [serious], são marcações de emoção do v3 (não são faladas).
-Se usar o Multilingual v2, APAGUE as marcações entre colchetes antes de gerar.
+VOZ RECOMENDADA PARA ESTE VÍDEO
+- Último vídeo: <voz usada> — <como ficou>
+- Recomendo: <voz>, porque <motivo ligado ao tema: alerta, curiosidade, calma…>
+- Pra testar também: <alternativa 1> · <alternativa 2>
 
-Salve cada MP3 em:  C:\Users\Usuário\Videos\tiktok-golpes-pix\elevenlabs
-com EXATAMENTE o nome indicado (ex.: abertura.mp3).
+AJUSTES
+- Stability: comece no meio pra baixo (mais expressiva, segue melhor as marcações).
+  Se algum bloco sair estranho/instável, suba um pouco só nele.
+- Similarity: deixe no padrão.
+- O v4 não tem controle de velocidade nem de estilo: o ritmo vem do texto,
+  das reticências e das marcações.
+- Gere UMA vez cada bloco. Só gere de novo os blocos que ficarem ruins.
+- Este texto tem <N> caracteres ≈ <N> créditos (plano grátis: 10.000 por mês).
+
+MARCAÇÕES
+As palavras em inglês entre colchetes, como [serious], dizem COMO falar.
+Elas não são faladas. Não apague.
+  [curious] pergunta/gancho   [serious] alerta   [excited] virada/chamada
+  [whispers] segredo   [sighs] perda   [mischievously] imitando o golpista
+  [short pause] / [long pause] antes de uma revelação
+Palavra em MAIÚSCULA = ênfase. Reticências = pausa com peso.
+
+PASSO A PASSO (plano Free: você gera no site)
+1. Abra o ElevenLabs, escolha a voz e o modelo Eleven v4 com os ajustes acima.
+2. Para cada bloco abaixo, na ordem: copie o texto, cole, gere e ouça.
+3. Baixe o MP3 e salve com EXATAMENTE o nome indicado (ex.: abertura.mp3)
+   nesta pasta:  D:\Projetos\TikTok\Video NN - <Tema>\3-voz
+4. Quando terminar todos, me avise.
 
 --- 1/8 · salvar como: abertura.mp3 ---
-[serious] Um clique. Foi só disso que ele precisou pra levar o seu dinheiro. E olha... sem hackear nada, tá? Foi você mesmo que apertou enviar. Esses são os cinco golpes do Pix que mais pegam brasileiro. E fica até o final, porque o número um... engana até gente esperta.
+[serious] Um clique. Foi só disso que ele precisou pra levar o seu dinheiro. [short pause] E olha... sem hackear nada, tá? [curious] Foi você mesmo que apertou enviar. Esses são os cinco golpes do Pix que mais pegam brasileiro. E fica até o final, porque o número um... engana até gente ESPERTA.
 
 --- 2/8 · salvar como: golpe5.mp3 ---
-Número cinco... a loja falsa. Sabe aquela promoção boa demais? Num site idêntico ao da loja de verdade... e o pagamento só aceita Pix. Aí você paga, e o produto? Nunca chega. Então, antes de confirmar, olha o nome de quem vai receber. Se não é o nome da empresa... cancela.
+[curious] Número cinco... a loja falsa. Sabe aquela promoção boa demais? Num site idêntico ao da loja de verdade... e o pagamento só aceita Pix. [sighs] Aí você paga, e o produto? NUNCA chega. [serious] Então, antes de confirmar, olha o nome de quem vai receber. Se não é o nome da empresa... cancela.
 
 --- 3/8 · salvar como: golpe4.mp3 ---
-Número quatro... as tarefas pagas. Te chamam pra ganhar dinheiro curtindo vídeos. E no começo eles pagam mesmo, viu? Uns trocados no Pix, só pra ganhar a sua confiança. Aí vem a tal da tarefa especial: deposita 200 reais pra liberar ganhos maiores. Você deposita... e o grupo some. [serious] Se pra ganhar você precisa pagar primeiro, é golpe.
+[curious] Número quatro... as tarefas pagas. [mischievously] Te chamam pra ganhar dinheiro curtindo vídeos. E no começo eles pagam mesmo, viu? Uns trocados no Pix, só pra ganhar a sua confiança. Aí vem a tal da tarefa especial: deposita duzentos reais pra liberar ganhos maiores. [sighs] Você deposita... e o grupo some. [serious] Se pra ganhar você precisa pagar primeiro, é GOLPE.
 
 --- 4/8 · salvar como: golpe3.mp3 ---
-Número três... o Pix por engano. Caem 500 reais na sua conta, de alguém que você nem conhece. Minutos depois, chega a mensagem: “Te mandei por engano, devolve nessa outra chave?” E você, de boa, devolve. Só que aí o golpista pede o estorno do Pix original pro banco... e o dinheiro sai da sua conta de novo. Resultado? Você paga duas vezes. Então, recebeu por engano? Devolve só pelo botão de devolução, na própria transação. Nunca pra outra chave.
+[curious] Número três... o Pix por engano. Caem quinhentos reais na sua conta, de alguém que você nem conhece. Minutos depois, chega a mensagem: “Te mandei por engano, devolve nessa outra chave?” E você, de boa, devolve. [serious] Só que aí o golpista pede o estorno do Pix original pro banco... e o dinheiro sai da sua conta de novo. [excited] Resultado? Você paga DUAS vezes. [serious] Então, recebeu por engano? Devolve só pelo botão de devolução, na própria transação. Nunca pra outra chave.
 
 --- 5/8 · salvar como: golpe2.mp3 ---
-Número dois... a falsa central do banco. Toca o telefone: “Aqui é da central de segurança, identificamos uma compra suspeita no seu cartão.” E eles sabem seu nome, seu CPF... e falam com uma calma! Aí, pra proteger o seu dinheiro, pedem um Pix pra uma conta segura. [serious] Só que conta segura não existe. Nenhum banco pede Pix pra cancelar compra. Desliga... e liga você mesmo no número que tá atrás do cartão.
+[curious] Número dois... a falsa central do banco. [mischievously] Toca o telefone: “Aqui é da central de segurança, identificamos uma compra suspeita no seu cartão.” [curious] E eles sabem seu nome, seu cê pê éfe... e falam com uma calma! Aí, pra proteger o seu dinheiro, pedem um Pix pra uma conta segura. [serious] Só que conta segura NÃO existe. Nenhum banco pede Pix pra cancelar compra. Desliga... e liga você mesmo no número que tá atrás do cartão.
 
 --- 6/8 · salvar como: golpe1.mp3 ---
-[serious] E o número um... o falso parente. Chega uma mensagem de um número novo, com a foto do seu filho: “Oi mãe, troquei de número.” E logo depois: “Tô com um problema, preciso pagar uma conta urgente... amanhã te devolvo.” A pressa é a arma do golpista. Então, antes de qualquer Pix, liga pro número antigo. Ou faz uma pergunta que só ele saberia responder.
+[serious] E o número um... o falso parente. Chega uma mensagem de um número novo, com a foto do seu filho: [mischievously] “Oi mãe, troquei de número.” E logo depois: “Tô com um problema, preciso pagar uma conta urgente... amanhã te devolvo.” [long pause] [serious] A pressa é a ARMA do golpista. Então, antes de qualquer Pix, liga pro número antigo. Ou faz uma pergunta que só ele saberia responder.
 
 --- 7/8 · salvar como: protecao.mp3 ---
-E se você já caiu em algum desses? Calma. Avisa o seu banco na hora e pede o MED, o mecanismo especial de devolução do Pix. Dá pra contestar direto no aplicativo, em até 80 dias... mas quanto antes, maior a chance de recuperar. Registra um boletim de ocorrência. E, de quebra, diminui o limite do seu Pix à noite.
+[serious] E se você já caiu em algum desses? [exhales] Calma. Avisa o seu banco na hora e pede o MED, o mecanismo especial de devolução do Pix. Dá pra contestar direto no aplicativo, em até oitenta dias... mas quanto ANTES, maior a chance de recuperar. Registra um boletim de ocorrência. E, de quebra, diminui o limite do seu Pix à noite.
 
 --- 8/8 · salvar como: chamada.mp3 ---
-[excited] Agora manda esse vídeo pra aquela pessoa que você sabe que ia cair. E comenta aqui embaixo: qual desses golpes já tentaram com você?
+[excited] Agora manda esse vídeo pra aquela pessoa que você sabe que ia cair. [curious] E comenta aqui embaixo: qual desses golpes já tentaram com você?

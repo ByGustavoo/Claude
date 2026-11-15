@@ -2,7 +2,7 @@
 name: tiktok-diretor-voz
 description: Agente Diretor de Voz da equipe de vídeos do canal Explica Aí. Modo "preparar" escreve os textos do ElevenLabs (Eleven v4, com marcações) e o passo a passo para o usuário; modo "conferir" verifica os MP3s baixados e monta a narração sincronizada. Só é chamado pelo Produtor (conversa principal) seguindo EQUIPE-DE-AGENTES.md da skill short-form-video.
 tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch
-model: opus
+model: sonnet
 effort: medium
 skills:
   - short-form-video
@@ -49,4 +49,5 @@ Tags, CAPS and spelled-out numbers exist only in this file, never in `roteiro.js
 
 Rules the Produtor added after real mistakes, with date and video. **Read them before you start: they override anything above.** Never edit this section yourself.
 
-- (nenhuma ainda)
+- 2026-11-13 · Video 02: no passo a passo do "preparar", peça ao usuário para dizer o nome exato da voz (e o ID) junto com o "terminei", para o "conferir" nunca ficar sem esse dado. Motivo: no Video 02 a voz usada (Will) não estava registrada em lugar nenhum.
+- 2026-11-13 · Video 02: valores em reais e porcentagens sempre passam por `juntar_numeros()` no montar_voz_externa.py, porque o Whisper os quebra em pedaços ("R" "$" "1" ".800"). Motivo: "2.040" ficava com duração zero.
