@@ -162,14 +162,14 @@ You are the Produtor. Specialists are called with the Agent tool (`subagent_type
 | 2 | `tiktok-editor` "preparar" + `tiktok-verificador` "dossie" + `tiktok-pesquisador` | all three in parallel (editor and verificador in background; only the pesquisador uses Chrome) | — |
 | 3 | `tiktok-roteirista` → `tiktok-verificador` "checar" | foreground; if the check has ⚠️/❌, roteirista again with `checagem.md`, then verificador again (2 rounds max, then show the user) | ✋2 roteiro |
 | 4 | `tiktok-diretor-voz` "preparar" | foreground | ✋3: paste the step-by-step for the user |
-| 5 | `tiktok-animador` "storyboard" + `tiktok-designer-capa` "conceito" | background, while the user generates the voice | — |
+| 5 | `tiktok-animador` "storyboard", then `tiktok-designer-capa` "conceito" as soon as `storyboard.md` exists | background, while the user generates the voice. The cover is built from the video's own elements, so without the storyboard part of the concept stays conditional (Designer, Video 02) | — |
 | 6 | `tiktok-diretor-voz` "conferir" | when the user says the MP3s are saved | ✋4 voz |
 | 7 | — | show storyboard + cover concept | ✋5 |
 | 8 | `tiktok-animador` "cenas" + `tiktok-legendador` | parallel (separate files) | — |
 | 9 | `tiktok-editor` "piloto" | background render | ✋6 piloto |
 | 10 | `tiktok-editor` "final" + `tiktok-designer-capa` "capa" then "postagem" | editor in background | — |
-| 11 | `tiktok-analista-tendencias` "hashtags" | foreground | ✋7 final |
-| 12 | — | retrospective (`DESEMPENHO-AGENTES.md`, loop 4): every adjustment of this video becomes a rule | report "o que a equipe aprendeu" |
+| 11 | `tiktok-analista-tendencias` "hashtags" | foreground. First check that Claude in Chrome answers (`tabs_context_mcp`); if not, ask the user to connect it before dispatching, or ✋7 stalls (Video 02) | ✋7 final |
+| 12 | — | retrospective (`DESEMPENHO-AGENTES.md`, loop 4): every adjustment of this video becomes a rule, then the skills are published to GitHub with `sincronizar-skills.mjs` (same loop) | report "o que a equipe aprendeu" and the `CLD-N` commit |
 | 13 | — | the user posts the video and says so (board button or chat) | close the episode (below) |
 
 **When the user brings a ready script** (e.g. `C:\Users\Usuário\Downloads\Explica Ai - roteiros dos proximos 6 videos.txt`, six scripts written on 2026-11-13 from the analysis of 19 reference videos, never reviewed by the team):
@@ -200,11 +200,11 @@ Trigger: a `VIDEO-POSTADO` line from the watcher, an unattended `tipo: "video-po
 1. Every request still open in `<vídeo>\pedidos\` gets `respostas\<id>.json` with `"decisao": "aprovar"`, `"motivo": "vídeo postado"`, `"via": "terminal"`, so the approval desk empties.
 2. `episodio.md`: add `Postado: DD/MM/AAAA (<link>)` under the theme and the decision `- AAAA-MM-DD · ✋7 APROVADO · vídeo postado pelo usuário`.
 3. Every agent file in `<vídeo>\status\` becomes `"estado": "pronto"` with `"fazendo": ""`, keeping its `saida`; `produtor.json` becomes `{"estado": "pronto", "etapa": "concluido", "aguardando": "", "fazendo": ""}`. This is what makes the office show the team as done and waiting (same shape as Video 01).
-4. Run the retrospective (step 12) if it was not done yet.
+4. Run the retrospective (step 12) if it was not done yet, ending with the skills published to GitHub.
 5. Add `"atendido": true` to the request file, if there is one.
 6. Tell the user in one or two lines: episode closed, what the team learned, and that the next video starts from the board ("Hoje vamos fazer o vídeo sobre ___") or by naming the theme.
 
-**Status files:** one per agent in `status\` (`{"estado","fazendo","saida","atualizado"}`, states `parado | trabalhando | esperando você | pronto`). One file per agent, so agents running in parallel never overwrite each other.
+**Status files:** one per agent in `status\` (`{"estado","fazendo","saida","atualizado"}`, states `parado | trabalhando | esperando você | pronto`). One file per agent, so agents running in parallel never overwrite each other. Paths in `saida` are relative to the video folder with forward slashes (`"5-video/final-4k60.mp4"`), and the file is written with a JSON library (`json.dumps` in Python, `JSON.stringify` in Node), never typed by hand in a heredoc: the Bash here collapses `\\`, and in Video 02 `"5-video\black…"` became an invalid file and a hidden `\b` character.
 
 **Agent files:** `C:\Users\Usuário\.claude\agents\tiktok-*.md`. Each one points to the SKILL.md sections it owns instead of copying them, so rules live in one place: change a rule here or in SKILL.md, not in the agents. Only Analista de Tendências and Pesquisador de Referências have Chrome. None of them can spawn other agents.
 

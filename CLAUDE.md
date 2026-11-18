@@ -3,6 +3,12 @@
 Valem para todos os projetos. Instruções de um `CLAUDE.md` de projeto são mais
 específicas e prevalecem quando houver conflito direto.
 
+## Idioma
+
+Responda sempre em português do Brasil, em todo projeto: nas respostas finais, nas
+mensagens curtas entre uma ferramenta e outra e nos textos de commit e documentação,
+salvo quando o projeto pedir outro idioma de forma explícita.
+
 ## Interface web
 
 Antes de criar ou alterar qualquer interface web, invoque a skill

@@ -28,32 +28,30 @@ interface ReciboProps {
   estilo?: CSSProperties;
 }
 
-export function ContornoAnimado({ progresso: t, largura, altura, cor = '#FF4D5A', estilo }: { progresso: number; largura: number; altura: number; cor?: string; estilo?: CSSProperties }) {
+export function ContornoAnimado({ progresso: t, altura, raio, cor = '#FF4D5A', estilo }: { progresso: number; largura?: number; altura: number; raio?: number; cor?: string; estilo?: CSSProperties }) {
   if (t <= 0) return null;
   const desenho = Math.min(t / 0.8, 1);
   const preenchimento = Math.max((t - 0.6) / 0.4, 0);
+  const r = Math.min(raio ?? altura / 2, altura / 2);
+  const completo = desenho >= 1;
   return (
-    <svg
-      viewBox={`0 0 ${largura} ${altura}`}
-      preserveAspectRatio="none"
-      style={{ position: 'absolute', overflow: 'visible', pointerEvents: 'none', ...estilo }}
-    >
-      <rect x="2" y="2" width={largura - 4} height={altura - 4} rx={(altura - 4) / 2} fill={cor} fillOpacity={0.09 * preenchimento} />
+    <svg style={{ position: 'absolute', overflow: 'visible', pointerEvents: 'none', ...estilo }}>
+      <rect x="0" y="0" width="100%" height="100%" rx={r} ry={r} fill={cor} fillOpacity={0.09 * preenchimento} />
       <rect
-        x="2"
-        y="2"
-        width={largura - 4}
-        height={altura - 4}
-        rx={(altura - 4) / 2}
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        rx={r}
+        ry={r}
         fill="none"
         stroke={cor}
         strokeWidth={4}
         pathLength={1}
-        strokeDasharray="1 1"
-        strokeDashoffset={1 - desenho}
+        strokeDasharray={completo ? undefined : '1 1'}
+        strokeDashoffset={completo ? undefined : 1 - desenho}
         strokeLinecap="round"
-        vectorEffect="non-scaling-stroke"
-        transform={`rotate(180 ${largura / 2} ${altura / 2})`}
+        style={{ transformBox: 'fill-box', transformOrigin: 'center', transform: 'rotate(180deg)' }}
       />
     </svg>
   );

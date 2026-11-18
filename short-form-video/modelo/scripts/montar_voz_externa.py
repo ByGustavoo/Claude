@@ -26,8 +26,44 @@ FALADO = {
     "500": ["quinhentos"],
     "80": ["oitenta"],
     "CPF": ["cê", "pê", "éfe"],
+    "1": ["um"],
+    "2": ["dois"],
+    "3": ["três"],
+    "4": ["quatro"],
+    "5": ["cinco"],
+    "7": ["sete"],
+    "12": ["doze"],
+    "50%": ["cinquenta", "por", "cento"],
+    "70%": ["setenta", "por", "cento"],
 }
-EQUIVALENTES = {"para": "pra", "estou": "to", "avise": "avisa", "cpf": "ce", "5": "cinco", "4": "quatro", "3": "tres", "2": "dois", "1": "um", "200": "duzentos", "500": "quinhentos", "80": "oitenta"}
+EQUIVALENTES = {
+    "para": "pra", "estou": "to", "esta": "ta", "avise": "avisa", "cpf": "ce",
+    "1": "um", "2": "dois", "3": "tres", "4": "quatro", "5": "cinco", "7": "sete", "12": "doze",
+    "50": "cinquenta", "70": "setenta", "80": "oitenta", "200": "duzentos", "500": "quinhentos",
+    "of": "off", "ofi": "off", "offi": "off", "whats": "whatsapp", "zap": "whatsapp",
+}
+
+
+def juntar_numeros(palavras):
+    saida, inicio_pendente = [], None
+    for p in palavras:
+        bruto = p["word"].strip()
+        n = normalizar(bruto)
+        if bruto in ("R", "R$") or (n == "" and inicio_pendente is not None):
+            inicio_pendente = p["start"] if inicio_pendente is None else inicio_pendente
+            continue
+        p = dict(p)
+        if inicio_pendente is not None:
+            p["start"], inicio_pendente = inicio_pendente, None
+        if saida and re.fullmatch(r"[.,]\d+[.,!?]?", bruto) and normalizar(saida[-1]["word"]).isdigit():
+            saida[-1] = dict(saida[-1], word=normalizar(saida[-1]["word"]) + normalizar(bruto), end=p["end"])
+            continue
+        if n == "":
+            if saida:
+                saida[-1] = dict(saida[-1], end=p["end"])
+            continue
+        saida.append(p)
+    return saida
 
 
 def preparar_ffmpeg():
@@ -120,7 +156,10 @@ def principal():
     preparar_ffmpeg()
     PASTA_TRABALHO.mkdir(parents=True, exist_ok=True)
     roteiro = json.loads(ROTEIRO.read_text(encoding="utf-8"))
-    tempo = roteiro.get("vozExterna", {}).get("tempo", 1.0)
+    config = roteiro.get("vozExterna", {})
+    tempo = config.get("tempo", 1.0)
+    fim_silencio = float(config.get("fimSilencio", FIM_SILENCIO))
+    pausa_padrao = float(roteiro.get("pausaEntreCenas", 0.3))
     import whisper
 
     transcritor = whisper.load_model("turbo", device="cuda")
@@ -128,12 +167,14 @@ def principal():
     blocos = [silencio(INICIO_SILENCIO)]
     cursor = INICIO_SILENCIO
     cenas = []
-    for cena in roteiro["cenas"]:
+    for numero, cena in enumerate(roteiro["cenas"]):
+        ultima = numero == len(roteiro["cenas"]) - 1
         origem = localizar(cena["id"])
         destino = PASTA_TRABALHO / f"{cena['id']}.wav"
         amostras, duracao = decodificar(origem, destino, tempo)
         resultado = transcritor.transcribe(str(destino), language="pt", word_timestamps=True)
-        palavras_whisper = [p for segmento in resultado["segments"] for p in segmento["words"]]
+        palavras_whisper = juntar_numeros([p for segmento in resultado["segments"] for p in segmento["words"]])
+        (PASTA_TRABALHO / f"{cena['id']}_whisper.json").write_text(json.dumps([{"w": p["word"], "s": round(p["start"], 2), "e": round(p["end"], 2), "p": round(p.get("probability", 0), 2)} for p in palavras_whisper], ensure_ascii=False, indent=0), encoding="utf-8")
         tokens = tokens_legenda(cena["texto"])
         tempos, cobertura = alinhar(palavras_whisper, tokens)
         aviso = "" if cobertura >= 0.85 else "  <-- confira: o áudio pode não bater com o texto"
@@ -145,11 +186,12 @@ def principal():
             "palavras": [{"texto": t, "inicio": round(cursor + a, 4), "fim": round(cursor + b, 4)} for t, (a, b) in zip(tokens, tempos)],
         })
         blocos.append(amostras)
-        pausa = roteiro["pausaEntreCenas"]
+        pausa = float(cena.get("pausaDepois", 0.0 if ultima else pausa_padrao))
+        cenas[-1]["pausaDepois"] = pausa
         blocos.append(silencio(pausa))
         cursor += duracao + pausa
-    blocos.append(silencio(FIM_SILENCIO))
-    cursor += FIM_SILENCIO
+    blocos.append(silencio(fim_silencio))
+    cursor += fim_silencio
     bruto = PASTA_TRABALHO / "voz_bruta.wav"
     with wave.open(str(bruto), "wb") as arquivo:
         arquivo.setnchannels(1)
@@ -162,7 +204,8 @@ def principal():
         check=True,
     )
     SAIDA_DADOS.write_text(json.dumps({"duracaoTotal": round(cursor, 4), "cenas": cenas}, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"total: {cursor:.2f}s", file=sys.stderr)
+    print(f"pausas: " + ", ".join(f"{c['id']} {c['pausaDepois']:.1f}s" for c in cenas) + f" | início {INICIO_SILENCIO}s, fim {fim_silencio}s", file=sys.stderr)
+    print(f"total: {cursor:.2f}s ({int(cursor // 60)}:{cursor % 60:04.1f})", file=sys.stderr)
 
 
 principal()

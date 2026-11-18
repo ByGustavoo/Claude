@@ -8,7 +8,9 @@
     "audio": "node scripts/gerarAudio.ts",
     "piloto": "remotion render src/index.ts GolpesPix ../4-pilotos/piloto.mp4 --codec=h264 --crf=18",
     "final": "remotion render src/index.ts GolpesPix ../5-video/golpes-pix-final.mp4 --codec=h264 --scale=2 --image-format=png --crf=14 --x264-preset=slow --color-space=bt709 --audio-bitrate=320k",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "capa": "remotion still src/index.ts CapaTresQuartos ../6-capa/capa-golpes-pix-3x4-4k.png --scale=2.6667",
+    "legendas": "npx tsx scripts/listarLegendas.ts"
   },
   "dependencies": {
     "@remotion/cli": "4.0.543",

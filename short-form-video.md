@@ -183,7 +183,7 @@ Also:
 
 ### 4. Scaffold
 
-Copy `modelo/` into the new project and rename the scenes. Keep its structure:
+Copy `modelo/` into the new project and rename the scenes. Keep its structure. The modelo is the complete Video 01 project (scenes, `Golpista`, `Celular`, `narracao.json`, `index.ts`) plus the Video 02 fixes, and `npx tsc --noEmit` passes on it right after the copy: replace the scenes and `narracao.json`, never patch missing files.
 
 | File | Role |
 |---|---|
@@ -222,6 +222,7 @@ Python lives in two venvs inside `projeto\`: `.venv` (imageio-ffmpeg, light) and
   - bottom about 380 px by the description;
   - right about 140 px by the buttons.
   - Keep text inside.
+  - Components that sit near the right edge (tip cards, banners, receipts) take the right safe zone as their **default** (right edge ≤ x 940), so no scene has to remember a `direita` prop (Animador, Video 02).
 
 **Phone (iPhone)**
 
@@ -262,6 +263,7 @@ Python lives in two venvs inside `projeto\`: `.venv` (imageio-ffmpeg, light) and
 - Markers around text are measured from the text itself, with padding. Never use a fixed box: one cut the number, another covered "digitando…".
 - `ContornoAnimado` draws at the box's real size (no fixed viewBox, `rx = ry` in px) and switches the dash to a solid stroke once drawn: a fixed viewBox stretched the shape, opening a gap and turning corners oval (Video 02).
 - **The outline copies the target's shape** (user, 2026-11-13, Video 02): its corner radius = the target's radius + the padding, never a pill around a square-ish input or footer. It must close completely (no gap in the stroke). Numbered markers ①②③④ sit on the target's own corner, never floating outside it.
+- **An outlined element takes up its own size plus the outline's padding** (user, 2026-11-14, Video 02: the "R$ 240 a mais que à vista" pill touched the bottom of its card). The space between the outline and the card edge is at least the card's side margin, on all four sides; make the card taller rather than squeezing it.
 
 **UI text and icons** (user, 2026-11-13, Video 02)
 
@@ -332,6 +334,7 @@ Python lives in two venvs inside `projeto\`: `.venv` (imageio-ffmpeg, light) and
 - **Blocks:** target at most 3 words or 16 characters. Break on punctuation, on pauses over 6 frames and at scene changes.
   - Short function words (não, o, a, de, na, pra, que…) stay attached to the next word ("NÃO EXISTE!" never split). This may stretch a block to 4 words ("SEU BANCO NA HORA"), which wraps to two lines and is fine.
   - Accepted styles: a 4-word block on two lines; a dimmed upcoming word (opacity 0.38) until it is spoken.
+  - **Group by minimum cost, not by the first rule that fails** (Legendador, Video 02): `modelo/src/componentes/blocosLegenda.ts` splits each stretch between punctuation and pauses at the lowest total cost, so a short word never dangles at the end of a block and fixed expressions never split. Per video, fill its three tables: `PARES_INSEPARAVEIS` (pairs that never split, e.g. "black friday", "70 off"), `COLADAS_EXTRA` (words always glued to the next one) and `EXIBIR` (screen text that differs from the spoken word, e.g. spoken "1800" shown as "R$ 1.800."). Run `npm run legendas` and read `out/legendas.txt` before the pilot.
 - **Show punctuation** exactly as spoken: . ? ! … :
 - **Visible only while the narrator speaks:** from 2 frames before the first word to 5 after the last. Blocks chain without fade when the gap is ≤ 8 frames, and disappear in silences.
 - **Position:** top 288, height 244, between the HUD and the scene title, never overlapping either. Check every scene.
@@ -359,6 +362,7 @@ Python lives in two venvs inside `projeto\`: `.venv` (imageio-ffmpeg, light) and
    - status bar contrast;
    - stamps covering text, or stamps that never show up;
    - empty boxes that show before their content.
+   - small text at 100%: the Animador's "cenas" delivery includes `out/textos-pequenos.md`, a table with the second and the x/y position of every small text (footers, seals ①②③④, store names), and the Editor crops exactly there. Guessing the moment cropped the wrong stretch of the Precilume footer and the seals (Editor, Video 02).
 5. Open the pilot for the user and report:
    - path;
    - duration;

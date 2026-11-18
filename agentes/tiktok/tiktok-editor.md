@@ -44,5 +44,4 @@ Follow SKILL.md §10–11 exactly: 4K 60 fps render to `projeto\out\<nome>-4k60-
 
 Rules the Produtor added after real mistakes, with date and video. **Read them before you start: they override anything above.** Never edit this section yourself.
 
-- 2026-11-13 · Video 02: o `modelo/` não compila sozinho (faltam `src/index.ts`, `src/cenas/`, `src/narracao.json`, `public/` e há referências a `Golpista` e às cenas do Pix). No "preparar", crie esses esqueletos e rode `npx tsc --noEmit` até passar. Motivo: o modelo veio incompleto no Video 02.
 - 2026-11-13 · Video 02: robocopy chamado pelo Git Bash precisa de `MSYS_NO_PATHCONV=1`, senão `/E` vira caminho. Motivo: a primeira cópia dos venvs falhou.
