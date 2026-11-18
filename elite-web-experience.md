@@ -250,6 +250,28 @@ Para uma página 404, uma 403 ou a tela de erro geral, siga a §15 antes de qual
 
 Use `:focus-visible` com indicador de contraste 3:1. Se remover o `outline` padrão, substitua por algo equivalente ou melhor. Nunca simplesmente `outline: none`.
 
+### Nada com a cara padrão do navegador
+
+Regra do usuário (18 de novembro de 2026): "eu não quero nada padrão do HTML [...] eu quero sempre um site profissional". Nenhum controle pode aparecer com o visual que o navegador desenha sozinho, nem com esse visual apenas recolorido (`accent-color` não basta). Cada um vira um componente do produto, desenhado com os tokens do design system, nos dois temas:
+
+| Nativo | O que entra no lugar |
+|---|---|
+| `<input type="range">` | Trilho, preenchimento e pino próprios, com o valor sempre visível ao lado (por exemplo "55%") e um balão com o valor sobre o pino enquanto a pessoa arrasta ou usa o teclado |
+| `<select>` | Botão que abre uma lista própria (padrão listbox/combobox), com a opção atual marcada |
+| `checkbox` e `radio` | Caixa, marca e interruptor desenhados (`appearance: none` ou input visualmente oculto mais o desenho) |
+| `type="date"`, `time`, `color`, `file`, setas do `type="number"` | Seletor de data próprio, campo com máscara, paleta, área de soltar arquivo e botões de mais e menos |
+| `<progress>`, `<meter>` | Barra própria, com o número escrito |
+| `<details>`, barras de rolagem, `title`, `alert`, `confirm`, `prompt`, balões de validação do `required` | Seta própria, rolagem estilizada, dica flutuante do projeto, modal do produto e mensagem de erro junto ao campo (§11) |
+
+Como construir:
+
+- **A semântica continua nativa ou vira ARIA completa**: um input oculto que ainda recebe foco e eventos, ou o padrão ARIA do componente (`role="slider"` com `aria-valuenow`, `aria-valuetext` e `aria-label`; `role="listbox"` com `aria-activedescendant`). Nunca um `<div>` que só funciona com o mouse.
+- **Teclado igual ao do nativo**: no slider, setas (passo pequeno), Page Up/Down (passo grande), Home e End; no select, setas, Enter, Esc e busca pela letra digitada.
+- **Mouse e toque com Pointer Events** (`setPointerCapture`, `touch-action: none` no controle), área de toque de 44 px e nenhum anel de foco ao clicar com o mouse: o anel aparece só pelo teclado (`:focus-visible`), então não chame `focus()` à força no `pointerdown`.
+- **Estados desenhados**: hover, arrastando ou aberto, foco, desabilitado (cinza, com ícone ou texto dizendo o porquê) e erro.
+- **Retorno do que mudou**: o valor aparece na hora; um volume toca uma prévia curta ao soltar, e um tema troca na hora.
+- Ao mexer numa tela, procure os controles nativos que ainda restam nela e liste-os ao final, oferecendo trocar (§2).
+
 ---
 
 ## 8. Evite o genérico
@@ -508,6 +530,7 @@ Antes de dar qualquer alteração de interface por concluída:
 - [ ] O comportamento é previsível.
 - [ ] Não há efeito adicionado sem necessidade, nem solução mais simples disponível.
 - [ ] O resultado não parece genérico.
+- [ ] Nenhum controle com a cara padrão do navegador (range, select, checkbox, date, scrollbar, `title`, `alert`…): todos são componentes do produto, com teclado e foco funcionando (§7).
 - [ ] Nenhum comentário foi escrito — nem JSDoc, nem `{/* */}` no JSX, nem `/* */` no CSS.
 - [ ] Tudo o que foi executado, testado e inspecionado usou o ambiente de desenvolvimento — aplicação, API, banco e dados —, nunca produção.
 - [ ] A página foi aberta no Chrome e inspecionada — ou a impossibilidade foi declarada logo no início da resposta.
