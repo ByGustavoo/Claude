@@ -2,7 +2,7 @@
 
 The user designed this on 2026-11-13. Read it whenever you start a new episode, resume one, or receive feedback on one. It is the procedure; SKILL.md holds the craft rules each step uses.
 
-Status: **agents implemented on 2026-11-13** in `C:\Users\Usuário\.claude\agents\tiktok-*.md` (9 specialists). The office page does not exist yet. **You, the main conversation, are the Produtor**: follow "Produtor playbook" below. If an agent is not available (session started before the files existed), do that step yourself following the agent's file, and tell the user to restart Claude Code.
+Status: **agents implemented on 2026-11-13** in `C:\Users\Usuário\.claude\agents\tiktok-*.md` (9 specialists). **Office page built on 2026-11-15** in `D:\Projetos\TikTok\Escritorio\` (see "The office page" below). **You, the main conversation, are the Produtor**: follow "Produtor playbook" below. If an agent is not available (session started before the files existed), do that step yourself following the agent's file, and tell the user to restart Claude Code.
 
 ## Why it works this way
 
@@ -64,7 +64,7 @@ At **every** gate the Produtor states, before asking for approval:
 - the gate message in chat stays self-contained (decisions, recommendation, locked/cost/risk), never "abra o arquivo X para ver";
 - ✋5 storyboard: one image, not text — a contact sheet with a quick sketch/still of each scene's key moment and a one-line caption under each, opened for the user (`cmd //c start`);
 - ✋5 cover concept: a rough mockup image of the recommended cover, not a description;
-- until the office page exists, these images are the "mesa de aprovação"; the office page (planned) should show them with approve/adjust buttons.
+- these images go into the gate's `pedidos\<id>.json` (`imagens`), so the office's approval modal shows them with approve / adjust / refuse buttons.
 
 Never skip a gate, never merge two gates on your own, and never start the next stage before an explicit approval. If the user approves with changes, apply them and show only the changed part again.
 
@@ -127,19 +127,23 @@ Rules:
 - When they say it's done, check that every expected file is there (accept `abertura.mp3.mp3`), list any missing or misnamed ones, then run the voice check of gate ✋4.
 - **When the user switches to Starter:** update this section, then test the API with library voices on the first video. If it works, the Diretor de Voz generates the blocks itself and the user only listens at ✋4.
 
-## The office page (planned)
+## The office page (built 2026-11-15)
 
-**Full build spec: `C:\Users\Usuário\Downloads\ESCRITORIO-DOS-AGENTES.md` (2026-11-15).** Decided by the user: cartoon flat style (C), page + terminal (the Produtor writes `pedidos\<id>.json` per gate and watches `respostas\` with Monitor), plan Pro, extras: Windows notification, sounds, bookshelf of videos, lessons board. The summary below is the original idea.
+**Code: `D:\Projetos\TikTok\Escritorio\`** (README.md and CLAUDE.md there). Start: `D:\Projetos\TikTok\Escritorio\iniciar.cmd` (starts `node servidor.js` if needed and opens Chrome at http://localhost:4747). Original spec: `C:\Users\Usuário\Downloads\ESCRITORIO-DOS-AGENTES.md`. Load `elite-web-experience` before changing its interface (user's global rule).
 
-A local web page drawn as an office:
+What it reads: `status\*.json`, `episodio.md`, `pedidos\`, `respostas\`, `5-video\`, `6-capa\` of every `Video NN`, the agent files, `DESEMPENHO-AGENTES.md`, the Claude Code transcripts (numbers only) and `dados\uso.json`, written by the global statusline `statusline.js` (5-hour and weekly % of the Pro plan). What it writes: only `<vídeo>\respostas\<id>.json` and `Escritorio\dados\pedidos-do-usuario\<id>.json`.
 
-- each agent is a character at its own desk, with a speech bubble saying what it is doing ("procurando vídeos de golpe…") and a state color;
-- clicking an agent shows what it produced;
-- a **mesa de aprovação** highlights whatever is waiting for the user, with "aprovar" and "pedir ajuste";
-- a meeting room shows the pilot/final, the cover and the script;
-- when feedback is routed, the Produtor character walks to the owner's desk.
+Status files may also use `"estado": "travado"` with a `"motivo"` (Chrome disconnected, ElevenLabs down…): the agent shows a ⚠ balloon with the reason.
 
-Build it in two steps: first it only **shows** the files in `status\`; then it **sends** approvals and adjustments to the Produtor. Load `elite-web-experience` before building it (user's global rule).
+**Protocol for every gate (and any question for the user):**
+
+1. Write `<vídeo>\pedidos\<id>.json` (id like `2026-11-20T14-03-gate2`): `id`, `gate` ("✋2"), `agente` (status slug: `roteirista`, `designer-capa`… or `produtor`), `titulo`, `pergunta`, `resumo` (≤5 items), optional `cenas` [{cena, original, proposto, motivo}], `imagens` [path or {caminho, legenda}], `midia` (mp3/mp4, same shape), `copiar` (text with a copy button, e.g. ElevenLabs blocks), `travado`, `custo`, `riscos`, `opcoes`, `criado`. Paths may be absolute or relative to the video folder; in JSON, escape backslashes or use `/`.
+2. The page plays a "plim", shows the "!" balloon, lights the approval desk and sends a Windows notification (by the server itself when the page is closed).
+3. Watch the answers with the **Monitor** tool: `node "D:/Projetos/TikTok/Escritorio/vigiar.js"` (one line per answer given in the office: `RESPOSTA <vídeo> | pedido <id> | decisão: … | cenas: … | motivo: …`, one per video asked on the board: `NOVO-VIDEO | tema: …`, and one per video the user marked as posted: `VIDEO-POSTADO | <vídeo> | link: …`). For a single answer, `aguardar-resposta.ps1 "<Video NN - Tema>" <id>` blocks until `respostas\<id>.json` exists. The watcher writes a heartbeat, so the page shows "Produtor online".
+4. If the user answers in the terminal instead, write `respostas\<id>.json` yourself (`"via": "terminal"`) so the page closes the request. Both paths always count.
+5. `ajustar` and `recusar` always carry `motivo`. Route it with the table above, as usual.
+6. The board's "Hoje vamos fazer o vídeo sobre ___" writes `dados\pedidos-do-usuario\<id>.json` (`tipo: "novo-video"`, `tema`, `prazo`). When the user says "começa o vídeo do quadro", read the newest one, open the episode following this playbook and add `"atendido": true` to that file.
+7. The board's "Postei o vídeo" (shown from ✋7 on, while the episode is open) writes `dados\pedidos-do-usuario\<id>.json` (`tipo: "video-postado"`, `video`, optional `link`). Close the episode as in "Closing an episode" below and add `"atendido": true` to that file.
 
 ## Produtor playbook
 
@@ -166,6 +170,7 @@ You are the Produtor. Specialists are called with the Agent tool (`subagent_type
 | 10 | `tiktok-editor` "final" + `tiktok-designer-capa` "capa" then "postagem" | editor in background | — |
 | 11 | `tiktok-analista-tendencias` "hashtags" | foreground | ✋7 final |
 | 12 | — | retrospective (`DESEMPENHO-AGENTES.md`, loop 4): every adjustment of this video becomes a rule | report "o que a equipe aprendeu" |
+| 13 | — | the user posts the video and says so (board button or chat) | close the episode (below) |
 
 **When the user brings a ready script** (e.g. `C:\Users\Usuário\Downloads\Explica Ai - roteiros dos proximos 6 videos.txt`, six scripts written on 2026-11-13 from the analysis of 19 reference videos, never reviewed by the team):
 
@@ -186,6 +191,18 @@ The script is a strong draft, not approved text: the user said the team may chan
 2. Append the decision to `episodio.md` and update `status\produtor.json` (`etapa`, `aguardando`: what the user must do).
    - Whenever a delivery is sent back (by you or by the user), log it in `DESEMPENHO-AGENTES.md`, decide "missing rule" vs. "agent failure", and escalate when the threshold is reached. Say it in one line at the next gate ("O Roteirista errou o mesmo ponto 2 vezes: passei ele para Opus com esforço xhigh").
 3. Show the gate: what was done, full paths to open, **what gets locked**, **what changing later costs**, **what looks risky**, and the question "aprova ou quer ajustar?".
+4. At every gate, also write `pedidos\<id>.json` and watch `respostas\` with Monitor (protocol in "The office page"). The chat message still exists, short: it points to the office ("deixei na mesa de aprovação do escritório").
+
+**Closing an episode** (user's request, 2026-11-17: after posting, the team must understand "terminou, acaba esse trabalho, vou esperar o próximo")
+
+Trigger: a `VIDEO-POSTADO` line from the watcher, an unattended `tipo: "video-postado"` file in `dados\pedidos-do-usuario\`, or the user saying in chat that the video is posted ("postei o vídeo", "encerra o vídeo postado"). Then, in this order:
+
+1. Every request still open in `<vídeo>\pedidos\` gets `respostas\<id>.json` with `"decisao": "aprovar"`, `"motivo": "vídeo postado"`, `"via": "terminal"`, so the approval desk empties.
+2. `episodio.md`: add `Postado: DD/MM/AAAA (<link>)` under the theme and the decision `- AAAA-MM-DD · ✋7 APROVADO · vídeo postado pelo usuário`.
+3. Every agent file in `<vídeo>\status\` becomes `"estado": "pronto"` with `"fazendo": ""`, keeping its `saida`; `produtor.json` becomes `{"estado": "pronto", "etapa": "concluido", "aguardando": "", "fazendo": ""}`. This is what makes the office show the team as done and waiting (same shape as Video 01).
+4. Run the retrospective (step 12) if it was not done yet.
+5. Add `"atendido": true` to the request file, if there is one.
+6. Tell the user in one or two lines: episode closed, what the team learned, and that the next video starts from the board ("Hoje vamos fazer o vídeo sobre ___") or by naming the theme.
 
 **Status files:** one per agent in `status\` (`{"estado","fazendo","saida","atualizado"}`, states `parado | trabalhando | esperando você | pronto`). One file per agent, so agents running in parallel never overwrite each other.
 
