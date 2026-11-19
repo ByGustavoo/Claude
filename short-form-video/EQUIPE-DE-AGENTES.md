@@ -129,7 +129,7 @@ Rules:
 
 ## The office page (built 2026-11-15)
 
-**Code: `D:\Projetos\TikTok\Escritorio\`** (README.md and CLAUDE.md there). Start: `D:\Projetos\TikTok\Escritorio\iniciar.cmd` (starts `node servidor.js` if needed and opens Chrome at http://localhost:4747). Original spec: `C:\Users\Usuário\Downloads\ESCRITORIO-DOS-AGENTES.md`. Load `elite-web-experience` before changing its interface (user's global rule).
+**Code: `D:\Projetos\TikTok\Escritorio\`** (README.md and CLAUDE.md there). Start: `D:\Projetos\TikTok\Escritorio\iniciar.cmd` (starts `node servidor.js` if needed and opens Chrome at http://localhost:5176). Original spec: `C:\Users\Usuário\Downloads\ESCRITORIO-DOS-AGENTES.md`. Load `elite-web-experience` before changing its interface (user's global rule).
 
 What it reads: `status\*.json`, `episodio.md`, `pedidos\`, `respostas\`, `5-video\`, `6-capa\` of every `Video NN`, the agent files, `DESEMPENHO-AGENTES.md`, the Claude Code transcripts (numbers only) and `dados\uso.json`, written by the global statusline `statusline.js` (5-hour and weekly % of the Pro plan). What it writes: only `<vídeo>\respostas\<id>.json` and `Escritorio\dados\pedidos-do-usuario\<id>.json`.
 
