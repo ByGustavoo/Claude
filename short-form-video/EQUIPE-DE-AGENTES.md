@@ -2,7 +2,7 @@
 
 The user designed this on 2026-11-13. Read it whenever you start a new episode, resume one, or receive feedback on one. It is the procedure; SKILL.md holds the craft rules each step uses.
 
-Status: **agents implemented on 2026-11-13** in `C:\Users\Usuário\.claude\agents\tiktok-*.md` (9 specialists). **Office page built on 2026-11-15** in `D:\Projetos\TikTok\Escritorio\` (see "The office page" below). **You, the main conversation, are the Produtor**: follow "Produtor playbook" below. If an agent is not available (session started before the files existed), do that step yourself following the agent's file, and tell the user to restart Claude Code.
+Status: **agents implemented on 2026-11-13** in `C:\Users\Usuário\.claude\agents\tiktok-*.md` (9 specialists). **Office page built on 2026-11-15** in `D:\Projetos\Quorum\Escritorio\` (see "The office page" below). **You, the main conversation, are the Produtor**: follow "Produtor playbook" below. If an agent is not available (session started before the files existed), do that step yourself following the agent's file, and tell the user to restart Claude Code.
 
 ## Why it works this way
 
@@ -88,7 +88,7 @@ Before rerunning, tell the user which agents will redo work and what it costs (c
 Everything lives on drive **D:**, one folder per video, numbered in posting order. Never put a new video under `C:\Users\Usuário\Videos` again.
 
 ```
-D:\Projetos\TikTok\
+D:\Projetos\Quorum\TikTok\
 ├── Video 01 - Golpes do Pix\
 ├── Video 02 - Black Friday\
 └── Video NN - <Tema>\
@@ -112,13 +112,13 @@ Rules:
 - **Scaffolding a new video:** copy `modelo/` into `projeto\`, then point the paths to the numbered folders before the first use: `montar_voz_externa.py` reads the MP3s from `..\3-voz`, renders go to `..\4-pilotos` and `..\5-video`, the cover to `..\6-capa`.
 - Agents talk through these files, never through memory of the conversation. Every gate message gives the **full path** of what the user must open.
 - **Video 01 - Golpes do Pix** was moved here from `C:\Users\Usuário\Videos\tiktok-golpes-pix` on 2026-11-13. Its `projeto\` is the reference project. `.venv` (imageio-ffmpeg) and `.venv-voz` (torch, Whisper, Chatterbox) were copied as they were and still work: on Windows a venv survives a move when called as `.venv\Scripts\python.exe` (only the `.exe` entry points like `pip.exe` break). **Whisper lives in `.venv-voz`**, so run `montar_voz_externa.py` with it.
-- **Channel-level files** (profile photos, logo tests) go to `D:\Projetos\TikTok\Canal\`, not inside a video.
+- **Channel-level files** (profile photos, logo tests) go to `D:\Projetos\Quorum\TikTok\Canal\`, not inside a video.
 
 ## ElevenLabs plan and the user's manual step
 
 - **Current plan: Free.** Keep it until the user says to switch (they plan to move to Starter later). Never assume a paid plan, never try the API for library voices.
 - So the voice is generated **by the user on the website**, and the Diretor de Voz must hand them a step-by-step they can follow without thinking. At the ✋3 gate, send:
-  1. the file to open, with the full path: `D:\Projetos\TikTok\Video NN - <Tema>\3-voz\TEXTOS-ELEVENLABS.txt`;
+  1. the file to open, with the full path: `D:\Projetos\Quorum\TikTok\Video NN - <Tema>\3-voz\TEXTOS-ELEVENLABS.txt`;
   2. the voice to pick and the settings (model Eleven v4, stability…);
   3. for each block, in order: "copie o bloco 1/8, cole no ElevenLabs, gere, ouça, baixe";
   4. **the exact file name** for each download (`abertura.mp3`, `golpe5.mp3`…) and **the exact folder** to save it: `…\3-voz\`;
@@ -129,7 +129,7 @@ Rules:
 
 ## The office page (built 2026-11-15)
 
-**Code: `D:\Projetos\TikTok\Escritorio\`** (README.md and CLAUDE.md there). Start: `D:\Projetos\TikTok\Escritorio\iniciar.cmd` (starts `node servidor.js` if needed and opens Chrome at http://localhost:5176). Original spec: `C:\Users\Usuário\Downloads\ESCRITORIO-DOS-AGENTES.md`. Load `elite-web-experience` before changing its interface (user's global rule).
+**Code: `D:\Projetos\Quorum\Escritorio\`** (README.md and CLAUDE.md there). Start: `D:\Projetos\Quorum\Escritorio\iniciar.cmd` (starts `node servidor.js` if needed and opens Chrome at http://localhost:5176). Original spec: `C:\Users\Usuário\Downloads\ESCRITORIO-DOS-AGENTES.md`. Load `elite-web-experience` before changing its interface (user's global rule).
 
 What it reads: `status\*.json`, `episodio.md`, `pedidos\`, `respostas\`, `5-video\`, `6-capa\` of every `Video NN`, the agent files, `DESEMPENHO-AGENTES.md`, the Claude Code transcripts (numbers only) and `dados\uso.json`, written by the global statusline `statusline.js` (5-hour and weekly % of the Pro plan). What it writes: only `<vídeo>\respostas\<id>.json` and `Escritorio\dados\pedidos-do-usuario\<id>.json`.
 
@@ -139,7 +139,7 @@ Status files may also use `"estado": "travado"` with a `"motivo"` (Chrome discon
 
 1. Write `<vídeo>\pedidos\<id>.json` (id like `2026-11-20T14-03-gate2`): `id`, `gate` ("✋2"), `agente` (status slug: `roteirista`, `designer-capa`… or `produtor`), `titulo`, `pergunta`, `resumo` (≤5 items), optional `cenas` [{cena, original, proposto, motivo}], `imagens` [path or {caminho, legenda}], `midia` (mp3/mp4, same shape), `copiar` (text with a copy button, e.g. ElevenLabs blocks), `travado`, `custo`, `riscos`, `opcoes`, `criado`. `opcoes` aceita só `aprovar`, `ajustar` e `recusar` (a página mostra um botão para cada um e ignora o resto); escolhas como os temas do ✋1 vão no `resumo` e a pessoa responde com "ajustar" + motivo ou no terminal (Video 03: opções com nomes de tema deixaram o pedido sem nenhum botão). Para o usuário **escolher entre opções** (temas do ✋1, títulos de capa…), use `escolhas`: `[{"titulo", "descricao", "recomendado": true}]` (ou só strings): a página mostra um cartão por opção, a recomendada já marcada, mais "Outra opção" com campo livre; a resposta vem como `decisao: "aprovar"` + `escolha` (+ `escolhaPropria: true` quando ele escreveu). Para um passo que o usuário faz fora e só avisa (gerar a voz no ElevenLabs), use `textoConfirmar: "Já salvei os áudios"`: vira um botão único e a resposta vem como `decisao: "confirmar"`. O `copiar` com cabeçalhos `--- 1/8 · salvar como: abertura.mp3 ---` vira um cartão por bloco, cada um com o próprio botão de copiar. Todo pedido em que o usuário salva arquivos numa pasta (gerar a voz, refazer um bloco no ✋4) leva `pastas`: `["downloads", {"caminho": "3-voz", "rotulo": "a pasta 3-voz", "descricao": "Onde a equipe espera os 7 áudios"}]` (`"downloads"` é a pasta Downloads do usuário; caminhos relativos partem da pasta do vídeo): a página mostra um cartão "Abrir …" que abre a pasta no computador (pedido do usuário, 2026-11-19). Mensagens de sucesso dos avisos terminam a primeira frase com "!" ("Aprovado!"), não com ponto. Paths may be absolute or relative to the video folder; in JSON, escape backslashes or use `/`.
 2. The page plays a "plim", shows the "!" balloon, lights the approval desk and sends a Windows notification (by the server itself when the page is closed).
-3. Watch the answers with the **Monitor** tool: `node "D:/Projetos/TikTok/Escritorio/vigiar.js"` (one line per answer given in the office: `RESPOSTA <vídeo> | pedido <id> | decisão: … | escolha: … | cenas: … | motivo: …`, one per video asked on the board: `NOVO-VIDEO | tema: …`, and one per video the user marked as posted: `VIDEO-POSTADO | <vídeo> | link: …`). For a single answer, `aguardar-resposta.ps1 "<Video NN - Tema>" <id>` blocks until `respostas\<id>.json` exists. The watcher writes a heartbeat, so the Produtor's card in the office (click him in the room) shows "Status: Online"; without it, "Offline". The header no longer shows this status.
+3. Watch the answers with the **Monitor** tool: `node "D:/Projetos/Quorum/Escritorio/vigiar.js"` (one line per answer given in the office: `RESPOSTA <vídeo> | pedido <id> | decisão: … | escolha: … | cenas: … | motivo: …`, one per video asked on the board: `NOVO-VIDEO | tema: …`, and one per video the user marked as posted: `VIDEO-POSTADO | <vídeo> | link: …`). For a single answer, `aguardar-resposta.ps1 "<Video NN - Tema>" <id>` blocks until `respostas\<id>.json` exists. The watcher writes a heartbeat, so the Produtor's card in the office (click him in the room) shows "Status: Online"; without it, "Offline". The header no longer shows this status.
 4. If the user answers in the terminal instead, write `respostas\<id>.json` yourself (`"via": "terminal"`) so the page closes the request. Both paths always count.
 5. `ajustar` and `recusar` always carry `motivo`. Route it with the table above, as usual.
 6. The board's "Hoje vamos fazer o vídeo sobre ___" writes `dados\pedidos-do-usuario\<id>.json` (`tipo: "novo-video"`, `tema`, `prazo`). When the user says "começa o vídeo do quadro", read the newest one, open the episode following this playbook and add `"atendido": true` to that file.
@@ -151,7 +151,7 @@ You are the Produtor. Specialists are called with the Agent tool (`subagent_type
 
 **Opening an episode**
 
-1. Next number = highest `Video NN` in `D:\Projetos\TikTok\` + 1. Create `Video NN - Novo\` with the 7 numbered folders, `status\` and `episodio.md`. Rename it to the theme right after ✋1, before dispatching anyone else.
+1. Next number = highest `Video NN` in `D:\Projetos\Quorum\TikTok\` + 1. Create `Video NN - Novo\` with the 7 numbered folders, `status\` and `episodio.md`. Rename it to the theme right after ✋1, before dispatching anyone else.
 2. If the user already brings a theme or reference links, still offer the trends step in one line; skip it if they say so.
 
 **Dispatch order**

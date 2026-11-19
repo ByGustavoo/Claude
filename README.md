@@ -14,9 +14,11 @@
 
 * 🧠 1 arquivo de instruções globais (`CLAUDE.md`)
 
-* 🧩 9 Skills especializadas em Markdown
+* 🧩 10 Skills especializadas em Markdown
 
 * 🤖 9 Agentes da equipe de vídeos do TikTok
+
+* ✂️ 5 Agentes da equipe de cortes do YouTube, com os scripts Python que fazem o trabalho pesado
 
 
 <br>
@@ -35,6 +37,7 @@
 | ✅ `testing` | Definir e executar a estratégia de testes proporcional ao risco da mudança, antes de declarar qualquer trabalho concluído |
 | 🎬 `project-video` | Pedido de vídeo de apresentação, demo ou motion graphics — analisa o projeto, destaca as principais ferramentas e renderiza em 4K com Remotion, com GIF para o README |
 | 📱 `short-form-video` | Vídeo vertical narrado para TikTok, Reels ou Shorts — roteiro, voz, legendas palavra por palavra e motion graphics em 4K 60 fps, seguindo as correções já feitas e a marca do canal |
+| ✂️ `youtube-cortes` | Cortes verticais 9:16 de vídeos longos do YouTube para o TikTok, só de fontes com permissão — busca, transcrição na GPU, escolha dos momentos com nota, enquadramento automático, legenda palavra por palavra, capa e descrição com crédito |
 | 🕵️ `code-review` | Revisar um diff em busca de regressões, falhas de segurança, perda de dados e regras de negócio quebradas |
 | 🚀 `release-project` | Preparar e publicar as mudanças — inspeção do diff, numeração sequencial do commit e escolha entre push direto ou Pull Request |
 
@@ -63,6 +66,28 @@ Equipe que produz os vídeos do canal Explica Aí, cada agente responsável por 
 <br>
 
 Os agentes usam as regras da skill `short-form-video` em vez de copiá-las, então uma correção feita na skill vale para todos.
+
+
+<br>
+
+
+## ✂️ Agentes de Cortes do YouTube
+
+Equipe que transforma vídeos longos do YouTube em cortes para o TikTok, com 4 aprovações (fonte, momentos, pilotos e final). O Produtor continua sendo a conversa principal, e todo trabalho mecânico (baixar, transcrever, cortar, legendar, renderizar) é script Python rodando no PC, para gastar poucos tokens.
+
+<br>
+
+| Agente | O que faz | Modelo |
+|---|---|---|
+| 🧭 `youtube-cacador` | Procura vídeos em alta e confere a permissão de corte de cada um (licença, regra do canal ou campeonato de cortes) | Sonnet · médio |
+| 🎯 `youtube-curador` | Lê o resumo compacto do vídeo, dá nota de 0 a 10 aos momentos e ajusta início e fim | Opus · alto |
+| 🎬 `youtube-editor` | Enquadra em 9:16, renderiza pilotos e finais e confere quadros e volume | Sonnet · médio |
+| 💬 `youtube-legendador` | Corrige nomes e termos do Whisper e gera a legenda palavra por palavra | Sonnet · médio |
+| 🖼️ `youtube-postagem` | Faz a capa, o título-gancho, a descrição com crédito e a ordem de publicação | Opus · médio |
+
+<br>
+
+Os scripts ficam em `ferramentas/youtube-cortes` (`buscar`, `baixar`, `transcrever`, `sinais`, `quadros`, `cortar`, `legendar`, `finalizar`, `capa` e `novo_lote`). Eles usam `yt-dlp`, Whisper na GPU, OpenCV com o detector de rostos YuNet, ffmpeg completo e a fonte Anton.
 
 
 <br>
@@ -106,7 +131,7 @@ $ cp Claude/CLAUDE.md ~/.claude/CLAUDE.md
 ```bash
 # Cria a pasta de cada skill e copia o arquivo como SKILL.md
 $ for skill in code-review elite-web-experience java-clean-architecture \
-               project-classifier project-video release-project short-form-video start-project testing; do
+               project-classifier project-video release-project short-form-video start-project testing youtube-cortes; do
     mkdir -p ~/.claude/skills/$skill
     cp Claude/$skill.md ~/.claude/skills/$skill/SKILL.md
   done
@@ -117,6 +142,9 @@ $ cp -r Claude/short-form-video/modelo ~/.claude/skills/short-form-video/
 
 # Copia o manual da equipe de agentes e o registro de desempenho de cada um
 $ cp Claude/short-form-video/*.md ~/.claude/skills/short-form-video/
+
+# Copia o manual da equipe de cortes
+$ cp Claude/youtube-cortes/*.md ~/.claude/skills/youtube-cortes/
 ```
 
 🔹 Agentes
@@ -124,6 +152,9 @@ $ cp Claude/short-form-video/*.md ~/.claude/skills/short-form-video/
 # Copia os agentes do TikTok para a pasta de agentes do Claude Code
 $ mkdir -p ~/.claude/agents
 $ cp Claude/agentes/tiktok/*.md ~/.claude/agents/
+
+# Copia os agentes de cortes do YouTube
+$ cp Claude/agentes/youtube/*.md ~/.claude/agents/
 ```
 
 
@@ -137,10 +168,13 @@ $ cp Claude/agentes/tiktok/*.md ~/.claude/agents/
 ```bash
 .
 ├── agentes
-│   └── tiktok                    9 agentes da equipe de vídeos do TikTok
+│   ├── tiktok                    9 agentes da equipe de vídeos do TikTok
+│   └── youtube                   5 agentes da equipe de cortes do YouTube
 ├── CLAUDE.md                     Instruções globais: quando acionar a elite-web-experience
 ├── code-review.md                Revisão de mudanças e caça a regressões
 ├── elite-web-experience.md       Web Design, UX/UI, front-end e acessibilidade
+├── ferramentas
+│   └── youtube-cortes            Scripts Python dos cortes: busca, download, transcrição, corte, legenda e capa
 ├── java-clean-architecture.md    Backend Java e Spring com Clean Architecture
 ├── project-classifier.md         Classificação do projeto e fluxo de release
 ├── project-video.md              Vídeo de apresentação em 4K com motion graphics
@@ -153,7 +187,10 @@ $ cp Claude/agentes/tiktok/*.md ~/.claude/agents/
 │   ├── DESEMPENHO-AGENTES.md     Nível de cada agente, falhas e escaladas
 │   └── modelo                    iPhone, chat, legendas, voz, revisão e foto de perfil
 ├── start-project.md              Onboarding em um repositório e documentação
-└── testing.md                    Estratégia de testes e validação honesta
+├── testing.md                    Estratégia de testes e validação honesta
+├── youtube-cortes.md             Cortes do YouTube para o TikTok, com permissão e 4 aprovações
+└── youtube-cortes
+    └── EQUIPE-DE-CORTES.md       Equipe, aprovações, pastas e roteiro do Produtor dos cortes
 ```
 
 

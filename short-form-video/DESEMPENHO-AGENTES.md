@@ -60,7 +60,9 @@ After an escalation the counter starts again from zero for that agent.
 
 `xhigh` sits between `high` and `max` and costs less than `max`, so it is tried first. If an agent at step 5 still fails, the problem is in the instructions or the task split: tell the user and propose splitting the job or rewriting the agent.
 
-To escalate: edit `model:` / `effort:` in `C:\Users\Usuário\.claude\agents\tiktok-<agente>.md`, update the table below, add a row to the log, and update the models table in `EQUIPE-DE-AGENTES.md`.
+To escalate: edit `model:` / `effort:` in `C:\Users\Usuário\.claude\agents\tiktok-<agente>.md`, update the table below, add a row to the log, and update the models table in `EQUIPE-DE-AGENTES.md`. For the cuts team, edit `youtube-<agente>.md` and the table in `youtube-cortes\EQUIPE-DE-CORTES.md` instead.
+
+The cuts team (skill `youtube-cortes`, 2026-11-19) uses this same file, the same failure rules and the same ladder. Its rows end with "(cortes)", and its log rows name the lote instead of the video (`Lote 01`).
 
 ## Current levels
 
@@ -75,6 +77,11 @@ To escalate: edit `model:` / `effort:` in `C:\Users\Usuário\.claude\agents\tikt
 | Pesquisador de Referências | 1 | sonnet | medium | 0 |
 | Legendador | 1 | sonnet | medium | 0 |
 | Editor | 1 | sonnet | medium | 0 |
+| Caçador de Vídeos (cortes) | 1 | sonnet | medium | 0 |
+| Curador de Momentos (cortes) | 3 | opus | high | 0 |
+| Editor de Cortes (cortes) | 1 | sonnet | medium | 0 |
+| Legendador de Cortes (cortes) | 1 | sonnet | medium | 0 |
+| Designer de Postagem (cortes) | 2 | opus | medium | 0 |
 
 ## Log
 
@@ -93,3 +100,4 @@ One row per failure, rule added or escalation. Newest at the bottom.
 | 2026-11-13 | Video 02 | Animador | falhas 1–2 após escalada (piloto 2, usuário) | 1ª mensagem do Zap sem "digitando" (regra existia); contorno do "R$ 899,00" com trecho faltando e marcador ④ fora do alvo (regra "markers measured from the target"). Demais pontos do usuário viraram regras novas (raio do contorno, "·", ícones, barra do Zap, larguras iguais). Contador: 2 (motivos diferentes). |
 | 2026-11-15 | — | Designer de Capa, Diretor de Voz | **rebaixados pelo usuário** (plano Pro) | economizar o limite do Claude Pro; Roteirista e Verificador ficam em opus/high, Animador fica em opus/xhigh (escalado por falhas) | Designer de Capa opus high → opus medium; Diretor de Voz opus medium → sonnet medium |
 | 2026-11-18 | Video 02 | todos | retrospectiva (não é falha) | 27 sugestões de aprendizado e os ajustes do usuário revisados; 20 já eram regra | 7 regras novas: Designer "conceito" depois do storyboard e Chrome testado antes das hashtags e status com caminhos relativos via biblioteca JSON (EQUIPE); folga do contorno ≥ margem do cartão, zona segura direita como padrão dos componentes, legenda por custo mínimo e tabela de textos pequenos (SKILL). `modelo/` compila sozinho, com `blocosLegenda.ts`, `ContornoAnimado` sem viewBox e `juntar_numeros()`. Lição do Editor sobre o modelo incompleto apagada; lição nova no Animador. Nenhum nível mudou. |
+| 2026-11-19 | — | equipe de cortes | níveis iniciais definidos (não é falha) | equipe nova da skill `youtube-cortes` | Curador opus/high (julgamento dos momentos), Designer de Postagem opus/medium (igual ao Designer de Capa), Caçador, Editor e Legendador sonnet/medium (mecânicos, regra da especificação) |

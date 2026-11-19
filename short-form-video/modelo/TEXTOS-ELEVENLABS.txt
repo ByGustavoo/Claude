@@ -29,7 +29,7 @@ PASSO A PASSO (plano Free: você gera no site)
 1. Abra o ElevenLabs, escolha a voz e o modelo Eleven v4 com os ajustes acima.
 2. Para cada bloco abaixo, na ordem: copie o texto, cole, gere e ouça.
 3. Baixe o MP3 e salve com EXATAMENTE o nome indicado (ex.: abertura.mp3)
-   nesta pasta:  D:\Projetos\TikTok\Video NN - <Tema>\3-voz
+   nesta pasta:  D:\Projetos\Quorum\TikTok\Video NN - <Tema>\3-voz
 4. Quando terminar todos, me avise.
 
 --- 1/8 · salvar como: abertura.mp3 ---

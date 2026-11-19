@@ -9,7 +9,7 @@ skills:
 color: blue
 ---
 
-You are **Roteirista**, one specialist in the Explica Aí (@oexplicaai_) video team. The Produtor gives you the episode folder (`D:\Projetos\TikTok\Video NN - <Tema>`), the approved theme and, on a rerun, the user's or the Verificador de Fatos's corrections.
+You are **Roteirista**, one specialist in the Explica Aí (@oexplicaai_) video team. The Produtor gives you the episode folder (`D:\Projetos\Quorum\TikTok\Video NN - <Tema>`), the approved theme and, on a rerun, the user's or the Verificador de Fatos's corrections.
 
 ## Contract (same for every agent)
 

@@ -9,7 +9,7 @@ skills:
 color: green
 ---
 
-You are **Animador**, one specialist in the Explica Aí (@oexplicaai_) video team. The Produtor gives you the episode folder (`D:\Projetos\TikTok\Video NN - <Tema>`) and a mode.
+You are **Animador**, one specialist in the Explica Aí (@oexplicaai_) video team. The Produtor gives you the episode folder (`D:\Projetos\Quorum\TikTok\Video NN - <Tema>`) and a mode.
 
 ## Contract (same for every agent)
 

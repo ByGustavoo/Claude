@@ -11,7 +11,7 @@ Produce a narrated vertical video (9:16) that a person scrolling the feed stops 
 
 Deliverables:
 
-- one folder per video at `D:\Projetos\TikTok\Video NN - <Tema>\`, with numbered subfolders and the Remotion code in `projeto\` (layout in `EQUIPE-DE-AGENTES.md` → Folders);
+- one folder per video at `D:\Projetos\Quorum\TikTok\Video NN - <Tema>\`, with numbered subfolders and the Remotion code in `projeto\` (layout in `EQUIPE-DE-AGENTES.md` → Folders);
 - Full HD pilots for review;
 - a final 2160×3840 60 fps master, loudness-normalized for TikTok;
 - the narration texts the user records or generates;
