@@ -42,7 +42,7 @@ Tags, CAPS and spelled-out numbers exist only in this file, never in `roteiro.js
 1. List `3-voz\`: every expected file present? Accept `x.mp3.mp3` and rename it to `x.mp3`. Report missing or misnamed files and stop there if any is missing.
 2. Run `projeto\.venv-voz\Scripts\python.exe -I scripts\montar_voz_externa.py` from `projeto\` (Whisper lives in `.venv-voz`). If `.venv-voz` is missing, report it: the Editor's "preparar" copies it.
 3. Read the unmatched words it prints. Separate real problems (a skipped or misread word, a number read wrong) from harmless ones (non-verbal tags like `[sighs]`, spelling variants: extend `FALADO`/`EQUIVALENTES` for those).
-4. Report per block: duration, problems found, and which blocks you recommend regenerating (and the credits that costs). Total duration vs. the 1:05–1:20 target.
+4. Report per block: duration, problems found, and which blocks you recommend regenerating (and the credits that costs). Total duration vs. the 1:02–1:10 target (never under 1:01).
 5. Remind the Produtor that you cannot hear: the user must listen and judge the tone.
 
 ## Lições aprendidas

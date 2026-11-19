@@ -26,7 +26,7 @@ Apply these to every final file:
 | Rule | TikTok limit | What we always deliver |
 |---|---|---|
 | File size | max 30 GB | a 3-min 4K60 master is about 70 MB; check with `ls -la` |
-| Duration | max 60 min | target 1:05–1:20, ceiling 1:30 (see §2) |
+| Duration | max 60 min | target 1:02–1:10, never under 1:01, ceiling 1:30 (see §2) |
 | Format | `.mp4` recommended | `.mp4`, H.264 + AAC, `-movflags +faststart` |
 | Resolution | 1080p, 1440p or 4K recommended | **always 4K**. Pilots stay Full HD only for review |
 | Aspect ratio | 16:9 landscape, 9:16 vertical | **9:16 vertical by default: 2160×3840.** 16:9 (3840×2160) only if the user asks for a landscape video |
@@ -110,11 +110,12 @@ These are hard rules learned from this user:
   - keep sentences short and use exclamations where the narrator warns.
   - Words that drive animations ("200", "apertou", "devolve") must stay stable across rewrites. Keep a backup of the old script (`out/backup_*/roteiro_v1.json`).
 - **Duration (the user adopted this rule on 2026-11-13):**
-  - **Target 1:05–1:20.** It passes 1 minute, the minimum for TikTok monetization, and sits in the range that performed best in the analysis of 19 reference videos: 45–90 s won, and the 130–157 s ones all underperformed.
+  - **Target 1:02–1:10** (user's decision, 2026-11-19, to spend fewer tokens per video: fewer scenes for the Animador). It passes 1 minute, the minimum for TikTok's Creator Rewards, and sits in the range that performed best in the analysis of 19 reference videos: 45–90 s won, and the 130–157 s ones all underperformed.
+  - **Never under 1:01.** A file of exactly 60 s can be counted as 59.9 s after upload and lose monetization. Check the final duration with ffprobe.
   - **Ceiling 1:30.** Go there only when the content needs it (e.g. a 5-item list such as the golpe do aluguel). The first video (5 golpes do Pix, 3:03) is longer than this rule: don't use its length as a model.
-  - **Never pad to hit a time.** If the script closes at 1:05, it stays 1:05. A stretched video makes people leave midway, and that hurts reach more than a short video does.
+  - **Never pad to hit a time.** If the script closes at 1:03, it stays 1:03. If it closes under 1:01, add content (one more fact or example), never pauses. A stretched video makes people leave midway, and that hurts reach more than a short video does.
   - **Retention matters more than length.** Put something new on screen every 15–20 s (a stamp, a number, a twist) so people don't swipe away.
-  - Estimate the length from the script before recording: about 2.5 words per second including pauses (measured on the first video: 460 words in 3:03). So 1:05–1:20 is roughly 160–200 words. When it runs long, cut copy, not pauses.
+  - Estimate the length from the script before recording: about 2.5 words per second including pauses (measured on the first video: 460 words in 3:03). So 1:02–1:10 is roughly 155–175 words. When it runs long, cut copy, not pauses.
   - Silent screens count too (2026-11-13, Video 02): add about 3 s for every protection card or screen with no narration over it. The draft looked like 1:24 of speech, but its four mute tip cards would have pushed the real video past the ceiling. Prefer saying the tip in the narration over a mute card.
   - Card reading time (Animador, 2026-11-13, Video 02): a protection card costs ≈2.1 s fixed (phone exits, beat, card builds) plus unspoken support text ÷ 3.5 words/s + 0.5 s. If speech alone passes ≈1:15, one card per item will not fit in 1:30: the tip must be spoken and shown inside the scene (over the narration), with support text ≤ 8 words. Check this before ✋2, not at the storyboard.
 - **`roteiro.json`:** one block per scene (`abertura`, `item5`…`item1`, `protecao`, `chamada`), each with the spoken `texto`.
@@ -142,7 +143,7 @@ The user rejected robotic voices twice. Use this order:
      - Similarity: keep the default; too high costs naturalness;
      - **v4 has no Style or Speed slider and no SSML.** Pace comes from the text: short sentences, reticências, and pace tags. Don't tell the user to set a speed;
      - **one generation per block**, then regenerate only the blocks that came out bad (see credits below).
-   - **Credits (free plan, checked 2026-11-13):** 10,000 credits **per month**, reset at the start of each billing cycle (counted from the signup date), **no rollover**. About 1 credit per character, ≈10 min of speech. A 1:05–1:20 script is ≈1,000–1,200 characters with tags (the 3:03 Pix video was 2,818), so one take of everything ≈1,200 credits and three takes ≈3,600. At the ✋3 gate, show the character count and the estimated credits, and how many the user has left if they say.
+   - **Credits (free plan, checked 2026-11-13):** 10,000 credits **per month**, reset at the start of each billing cycle (counted from the signup date), **no rollover**. About 1 credit per character, ≈10 min of speech. A 1:02–1:10 script is ≈950–1,050 characters with tags (the 3:03 Pix video was 2,818), so one take of everything ≈1,050 credits and three takes ≈3,200. At the ✋3 gate, show the character count and the estimated credits, and how many the user has left if they say.
    - **Audio tags: always use them, in every block.** They are English words in square brackets, not spoken, and they are what makes the narrator sound human:
      - **every block opens with a tone tag** and gets a new tag whenever the emotion changes inside it;
      - **mapping for this channel:**
